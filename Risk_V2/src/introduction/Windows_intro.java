@@ -34,7 +34,7 @@ public class Windows_intro extends JPanel{
 		this.imgbase = ScaledImage(imgbase, 1280, 720);
 		
 		
-		this.icobutton = new ImageIcon(getClass().getResource("/image/intro.jpg"));
+		this.icobutton = new ImageIcon(getClass().getResource("/image/bouton_jouer.png"));
 		this.imgbutton = this.icobutton.getImage();
 		//this.imgbutton = ScaledImage(imgbutton, 200, 100);
 	}
@@ -78,8 +78,7 @@ public class Windows_intro extends JPanel{
 			window.setVisible(true);
 			
 			//instantiation du bouton
-			JButton bouton = new JButton("ceee");
-			bouton.setBackground(Color.red);
+			JButton bouton = new JButton(this.icobutton);
 			window.add(bouton);
 
 
