@@ -89,7 +89,6 @@ public class Windows_intro extends JPanel{
 			bouton.addMouseListener(new Mouse_control());
 			
 
-
 	}
 
 	
