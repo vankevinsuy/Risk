@@ -87,6 +87,7 @@ public class Windows_intro extends JPanel{
 			
 			//instantiation du bouton "jouer"
 			JButton bouton = new JButton(this.icobutton);
+//			bouton.setName();
 			window.setLayout(null);
 			window.add(bouton);
 			bouton.setOpaque(false);
@@ -96,9 +97,6 @@ public class Windows_intro extends JPanel{
 			bouton.addMouseListener(new Mouse_control());
 			
 			
-			
-			
-
 	}
 
 
