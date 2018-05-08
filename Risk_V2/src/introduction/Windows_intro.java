@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -85,6 +86,8 @@ public class Windows_intro extends JPanel{
 			bouton.setContentAreaFilled(false);
 			bouton.setBorderPainted(false);
 			bouton.setBounds(500, 450, 300, 300);
+			bouton.addMouseListener(new Mouse_control());
+			
 
 
 	}
