@@ -22,6 +22,8 @@ public class Windows_intro extends JPanel{
 	
 	private ImageIcon icobutton;
 	
+	public static JFrame window = new JFrame("Risk");
+	
 	public static JButton boutonmain = new JButton();
 	public static JButton bouton_2joueurs = new JButton();
 	public static JButton bouton_3joueurs = new JButton();
@@ -76,7 +78,7 @@ public class Windows_intro extends JPanel{
 	
 	public void Launch() {
 		// création d'une fenêtre pour le jeu
-			JFrame window = new JFrame("Risk");
+//			JFrame window = new JFrame("Risk");
 			
 			//definir les caractéristiques de la fenêtre
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
