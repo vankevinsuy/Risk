@@ -19,9 +19,9 @@ public class Windows_intro extends JPanel{
 
 	private ImageIcon icobase;
 	private Image imgbase;
+	
 	private ImageIcon icobutton;
 	private Image imgbutton;
-	JButton bouton = new JButton("Mon premier bouton");
 	
 
 	
@@ -32,6 +32,10 @@ public class Windows_intro extends JPanel{
 		this.icobase = new ImageIcon(getClass().getResource("/image/intro.jpg"));
 		this.imgbase = this.icobase.getImage();
 		this.imgbase = ScaledImage(imgbase, 1280, 720);
+		
+		this.icobutton = new ImageIcon(getClass().getResource("/image/bouton_jouer.png"));
+		this.imgbutton = this.icobutton.getImage();
+		this.imgbutton = ScaledImage(imgbutton, 128, 70);
 	}
 	
 	
@@ -40,6 +44,7 @@ public class Windows_intro extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(imgbase,0,0,null);
+		g.drawImage(imgbutton,0,0,null);
 	}
 
 
@@ -73,26 +78,19 @@ public class Windows_intro extends JPanel{
 			
 			//instancition de l'objet boutton
 			
-			JButton bouton = new JButton("Mon bouton");
-			this.bouton = bouton.setLocation(400, 500);;
-			window.add(bouton);
+//			JButton bouton = new JButton("Mon bouton");
+//			bouton.setBackground(Color.blue);
+//			bouton.setLayout(null);
+//			bouton.setLocation(20,20);
+//			System.out.println(bouton.getLocation());
+//			window.add(bouton);
 			
-//		    window.add(bouton);
-//		    this.setContentPane(window);
-//		    this.setVisible(true);
-//		    this.setSize(1000, 300);
+
 		    
 
 
 			
 	}
-
-
-	private void setContentPane(JFrame window) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 
 	
 	
