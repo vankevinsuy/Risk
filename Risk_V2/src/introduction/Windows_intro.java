@@ -22,13 +22,20 @@ public class Windows_intro extends JPanel{
 	
 	private ImageIcon icobutton;
 	
-	private JButton bouton = new JButton("Mon premier bouton");
+	public static JButton boutonmain = new JButton();
+	public static JButton bouton_2joueurs = new JButton();
+	public static JButton bouton_3joueurs = new JButton();
+	public static JButton bouton_4joueurs = new JButton();
+	public static JButton bouton_5joueurs = new JButton();
+	public static JButton bouton_6joueurs = new JButton();
 
 	private ImageIcon icoboutonjouer2 ;
 	private ImageIcon icoboutonjouer3 ;
 	private ImageIcon icoboutonjouer4 ;
 	private ImageIcon icoboutonjouer5 ;
 	private ImageIcon icoboutonjouer6 ;
+	
+	public static int nombre_de_joueur;
 	
 	//constructeur de la page d'intro
 	public Windows_intro() {
@@ -75,7 +82,7 @@ public class Windows_intro extends JPanel{
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.setSize(this.imgbase.getWidth(null), this.imgbase.getHeight(null)+20);//dimension de la fenêtre
 			window.setLocation(0,0); // position de la fenêtre
-			window.setResizable(true);
+			window.setResizable(false);
 			window.setBackground(Color.WHITE);
 			window.setAlwaysOnTop(false);
 			
@@ -86,18 +93,77 @@ public class Windows_intro extends JPanel{
 			window.setVisible(true);
 			
 			//instantiation du bouton "jouer"
-			JButton bouton = new JButton(this.icobutton);
-//			bouton.setName();
+			boutonmain = new JButton(this.icobutton);
 			window.setLayout(null);
-			window.add(bouton);
-			bouton.setOpaque(false);
-			bouton.setContentAreaFilled(false);
-			bouton.setBorderPainted(false);
-			bouton.setBounds(500, 450, 300, 300);
-			bouton.addMouseListener(new Mouse_control());
+			boutonmain.setName("bouton_jouer");
+			window.add(boutonmain);
+			boutonmain.setOpaque(false);
+			boutonmain.setContentAreaFilled(false);
+			boutonmain.setBorderPainted(false);
+			boutonmain.setBounds(500, 570, 280, 90);
+			boutonmain.addMouseListener(new Mouse_control());
 			
+			
+			//instantiation du bouton "2joueurs"
+			bouton_2joueurs = new JButton(this.icoboutonjouer2);
+			window.setLayout(null);
+			bouton_2joueurs.setName("bouton_2joueurs");
+			window.add(bouton_2joueurs);
+			bouton_2joueurs.setOpaque(false);
+			bouton_2joueurs.setContentAreaFilled(false);
+			bouton_2joueurs.setBorderPainted(false);
+			bouton_2joueurs.setBounds(50, 300, 280, 90);
+			bouton_2joueurs.addMouseListener(new Mouse_control());
+			
+			//instantiation du bouton "3joueurs"
+			bouton_3joueurs = new JButton(this.icoboutonjouer3);
+			window.setLayout(null);
+			bouton_3joueurs.setName("bouton_3joueurs");
+			window.add(bouton_3joueurs);
+			bouton_3joueurs.setOpaque(false);
+			bouton_3joueurs.setContentAreaFilled(false);
+			bouton_3joueurs.setBorderPainted(false);
+			bouton_3joueurs.setBounds(350, 300, 280, 90);
+			bouton_3joueurs.addMouseListener(new Mouse_control());
+			
+			
+			//instantiation du bouton "4joueurs"
+			bouton_4joueurs = new JButton(this.icoboutonjouer4);
+			window.setLayout(null);
+			bouton_4joueurs.setName("bouton_4joueurs");
+			window.add(bouton_4joueurs);
+			bouton_4joueurs.setOpaque(false);
+			bouton_4joueurs.setContentAreaFilled(false);
+			bouton_4joueurs.setBorderPainted(false);
+			bouton_4joueurs.setBounds(650, 300, 280, 90);
+			bouton_4joueurs.addMouseListener(new Mouse_control());
+			
+			
+			//instantiation du bouton "5joueurs"
+			bouton_5joueurs = new JButton(this.icoboutonjouer5);
+			window.setLayout(null);
+			bouton_5joueurs.setName("bouton_5joueurs");
+			window.add(bouton_5joueurs);
+			bouton_5joueurs.setOpaque(false);
+			bouton_5joueurs.setContentAreaFilled(false);
+			bouton_5joueurs.setBorderPainted(false);
+			bouton_5joueurs.setBounds(950, 300, 280, 90);
+			bouton_5joueurs.addMouseListener(new Mouse_control());
+			
+			
+			//instantiation du bouton "6joueurs"
+			bouton_6joueurs = new JButton(this.icoboutonjouer6);
+			window.setLayout(null);
+			bouton_6joueurs.setName("bouton_6joueurs");
+			window.add(bouton_6joueurs);
+			bouton_6joueurs.setOpaque(false);
+			bouton_6joueurs.setContentAreaFilled(false);
+			bouton_6joueurs.setBorderPainted(false);
+			bouton_6joueurs.setBounds(500, 430, 280, 90);
+			bouton_6joueurs.addMouseListener(new Mouse_control());
 			
 	}
+	
 
 
 }
