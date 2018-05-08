@@ -21,11 +21,14 @@ public class Windows_intro extends JPanel{
 	private Image imgbase;
 	
 	private ImageIcon icobutton;
-	private Image imgbutton;
 	
 	private JButton bouton = new JButton("Mon premier bouton");
 
-	
+	private ImageIcon icoboutonjouer2 ;
+	private ImageIcon icoboutonjouer3 ;
+	private ImageIcon icoboutonjouer4 ;
+	private ImageIcon icoboutonjouer5 ;
+	private ImageIcon icoboutonjouer6 ;
 	
 	//constructeur de la page d'intro
 	public Windows_intro() {
@@ -34,10 +37,14 @@ public class Windows_intro extends JPanel{
 		this.imgbase = this.icobase.getImage();
 		this.imgbase = ScaledImage(imgbase, 1280, 720);
 		
-		
 		this.icobutton = new ImageIcon(getClass().getResource("/image/bouton_jouer.png"));
-		this.imgbutton = this.icobutton.getImage();
-		//this.imgbutton = ScaledImage(imgbutton, 200, 100);
+		
+		this.icoboutonjouer2 = new ImageIcon(getClass().getResource("/image/bouton_2joueurs.png"));
+		this.icoboutonjouer3 = new ImageIcon(getClass().getResource("/image/bouton_3joueurs.png"));
+		this.icoboutonjouer4 = new ImageIcon(getClass().getResource("/image/bouton_4joueurs.png"));
+		this.icoboutonjouer5 = new ImageIcon(getClass().getResource("/image/bouton_5joueurs.png"));
+		this.icoboutonjouer6 = new ImageIcon(getClass().getResource("/image/bouton_6joueurs.png"));
+		
 	}
 	
 	
@@ -73,12 +80,12 @@ public class Windows_intro extends JPanel{
 			window.setAlwaysOnTop(false);
 			
 
-			//instancition de l'objet plateau
+			//instantiation de l'objet plateau
 			Windows_intro windows_intro = new Windows_intro();
 			window.setContentPane(windows_intro); 
 			window.setVisible(true);
 			
-			//instantiation du bouton
+			//instantiation du bouton "jouer"
 			JButton bouton = new JButton(this.icobutton);
 			window.setLayout(null);
 			window.add(bouton);
@@ -87,6 +94,9 @@ public class Windows_intro extends JPanel{
 			bouton.setBorderPainted(false);
 			bouton.setBounds(500, 450, 300, 300);
 			bouton.addMouseListener(new Mouse_control());
+			
+			
+			
 			
 
 	}

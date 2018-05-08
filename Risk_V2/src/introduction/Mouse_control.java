@@ -8,6 +8,6 @@ public class Mouse_control extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-		System.out.println("ddd");
+		System.out.println(e.getButton());
 	}
 }
