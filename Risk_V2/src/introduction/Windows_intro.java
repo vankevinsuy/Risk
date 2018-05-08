@@ -79,7 +79,9 @@ public class Windows_intro extends JPanel{
 			
 			//instantiation du bouton
 			JButton bouton = new JButton(this.icobutton);
+			window.setLayout(null);
 			window.add(bouton);
+			bouton.setBounds(600, 500, 300, 300);
 
 
 			
