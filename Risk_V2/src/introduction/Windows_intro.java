@@ -5,13 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 
 public class Windows_intro extends JPanel{
 
@@ -91,7 +91,5 @@ public class Windows_intro extends JPanel{
 
 	}
 
-	
-	
-	
+	//ss
 }
