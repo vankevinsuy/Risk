@@ -91,5 +91,5 @@ public class Windows_intro extends JPanel{
 
 	}
 
-	//ss
+
 }
