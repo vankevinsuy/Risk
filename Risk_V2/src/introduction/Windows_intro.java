@@ -81,10 +81,12 @@ public class Windows_intro extends JPanel{
 			JButton bouton = new JButton(this.icobutton);
 			window.setLayout(null);
 			window.add(bouton);
+			bouton.setOpaque(false);
+			bouton.setContentAreaFilled(false);
+			bouton.setBorderPainted(false);
 			bouton.setBounds(600, 500, 300, 300);
 
 
-			
 	}
 
 	
