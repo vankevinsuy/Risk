@@ -1,6 +1,5 @@
 package introduction;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,6 +22,7 @@ public class Windows_intro extends JPanel{
 	private ImageIcon icobutton;
 	private Image imgbutton;
 	
+	private JButton bouton = new JButton("Mon premier bouton");
 
 	
 	
@@ -33,9 +33,10 @@ public class Windows_intro extends JPanel{
 		this.imgbase = this.icobase.getImage();
 		this.imgbase = ScaledImage(imgbase, 1280, 720);
 		
-		this.icobutton = new ImageIcon(getClass().getResource("/image/bouton_jouer.png"));
+		
+		this.icobutton = new ImageIcon(getClass().getResource("/image/intro.jpg"));
 		this.imgbutton = this.icobutton.getImage();
-		this.imgbutton = ScaledImage(imgbutton, 128, 70);
+		//this.imgbutton = ScaledImage(imgbutton, 200, 100);
 	}
 	
 	
@@ -44,7 +45,6 @@ public class Windows_intro extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(imgbase,0,0,null);
-		g.drawImage(imgbutton,0,0,null);
 	}
 
 
@@ -71,22 +71,16 @@ public class Windows_intro extends JPanel{
 			window.setBackground(Color.WHITE);
 			window.setAlwaysOnTop(false);
 			
+
 			//instancition de l'objet plateau
 			Windows_intro windows_intro = new Windows_intro();
 			window.setContentPane(windows_intro); 
 			window.setVisible(true);
 			
-			//instancition de l'objet boutton
-			
-//			JButton bouton = new JButton("Mon bouton");
-//			bouton.setBackground(Color.blue);
-//			bouton.setLayout(null);
-//			bouton.setLocation(20,20);
-//			System.out.println(bouton.getLocation());
-//			window.add(bouton);
-			
-
-		    
+			//instantiation du bouton
+			JButton bouton = new JButton("ceee");
+			bouton.setBackground(Color.red);
+			window.add(bouton);
 
 
 			
