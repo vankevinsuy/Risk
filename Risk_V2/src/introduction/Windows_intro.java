@@ -84,7 +84,7 @@ public class Windows_intro extends JPanel{
 			bouton.setOpaque(false);
 			bouton.setContentAreaFilled(false);
 			bouton.setBorderPainted(false);
-			bouton.setBounds(600, 500, 300, 300);
+			bouton.setBounds(500, 450, 300, 300);
 
 
 	}
