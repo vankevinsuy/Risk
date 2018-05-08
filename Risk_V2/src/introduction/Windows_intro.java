@@ -1,5 +1,6 @@
 package introduction;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 public class Windows_intro extends JPanel{
 
@@ -17,6 +19,10 @@ public class Windows_intro extends JPanel{
 
 	private ImageIcon icobase;
 	private Image imgbase;
+	private ImageIcon icobutton;
+	private Image imgbutton;
+	JButton bouton = new JButton("Mon premier bouton");
+	
 
 	
 	
@@ -27,6 +33,7 @@ public class Windows_intro extends JPanel{
 		this.imgbase = this.icobase.getImage();
 		this.imgbase = ScaledImage(imgbase, 1280, 720);
 	}
+	
 	
 	//methode qui peint les images sur la fenetre 
 	@Override
@@ -63,8 +70,27 @@ public class Windows_intro extends JPanel{
 			Windows_intro windows_intro = new Windows_intro();
 			window.setContentPane(windows_intro); 
 			window.setVisible(true);
+			
+			//instancition de l'objet boutton
+			
+			JButton bouton = new JButton("Mon bouton");
+			this.bouton = bouton.setLocation(400, 500);;
+			window.add(bouton);
+			
+//		    window.add(bouton);
+//		    this.setContentPane(window);
+//		    this.setVisible(true);
+//		    this.setSize(1000, 300);
+		    
+
 
 			
+	}
+
+
+	private void setContentPane(JFrame window) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
