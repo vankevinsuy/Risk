@@ -39,15 +39,17 @@ public class Mouse_info extends MouseAdapter{
 		}
 		
 		Color current_color = robot.getPixelColor(this.xposition, this.yposition);
-//		System.out.println(current_color);
+		//System.out.println(current_color);
 		
-        if (current_color.getRed() == couleur_Asie[0]) {
-			if (current_color.getGreen() == couleur_Asie[1]) {
-				if (current_color.getBlue() == couleur_Asie[2]) {
+        if (current_color.getRed() == couleur_Asie[0] || current_color.getRed() == couleur_Asie[0]-1 || current_color.getRed() == couleur_Asie[0]+1) {
+			if (current_color.getGreen() == couleur_Asie[1] || current_color.getGreen() == 171|| current_color.getGreen() == 160 || current_color.getGreen() == 150 || current_color.getGreen() == 140 || current_color.getGreen() == 130 || current_color.getGreen() == 120) {
+				if (current_color.getBlue() == couleur_Asie[2] || current_color.getBlue() == couleur_Asie[2]+1 || current_color.getBlue() == couleur_Asie[2]-1) {
 					System.out.println("Asie");
 				}
 			}
-		}
+        }
+		
+
         
         if (current_color.getRed() == couleur_Afrique[0]) {
 			if (current_color.getGreen() == couleur_Afrique[1]) {
