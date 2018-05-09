@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import introduction.Windows_intro;
+
 
 
 public class Plateau_de_jeu extends JPanel{
@@ -63,9 +65,7 @@ public class Plateau_de_jeu extends JPanel{
 			//instancition de l'objet plateau
 			Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
 			Map.setContentPane(plateau_de_jeu); 
-			Map.setVisible(true);
-			
-			
+			Map.setVisible(true);			
 	}
 	
 	
