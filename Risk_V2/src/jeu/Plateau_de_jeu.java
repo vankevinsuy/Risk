@@ -65,6 +65,7 @@ public class Plateau_de_jeu extends JPanel{
 			//instancition de l'objet plateau
 			Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
 			Map.setContentPane(plateau_de_jeu); 
+			Map.getContentPane().addMouseListener(new Mouse_info());
 			Map.setVisible(true);			
 	}
 	
