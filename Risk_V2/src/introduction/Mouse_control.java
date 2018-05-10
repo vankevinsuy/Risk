@@ -3,6 +3,8 @@ package introduction;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import jeu.Maitre_du_jeu;
 import jeu.Plateau_de_jeu;
 
 public class Mouse_control extends MouseAdapter{
@@ -19,9 +21,7 @@ public class Mouse_control extends MouseAdapter{
 			else {
 				System.out.println("lancer une partie à " +Windows_intro.nombre_de_joueur + " joueurs");
 				
-				Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
-				plateau_de_jeu.Launch();
-				Windows_intro.window.setVisible(false);
+				Maitre_du_jeu maitre_du_jeu = new Maitre_du_jeu();
 			}
 			
 		}
