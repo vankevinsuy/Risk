@@ -71,7 +71,7 @@ public class Plateau_de_jeu extends JPanel{
 			//instancition de l'objet plateau
 			Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
 			Map.setContentPane(plateau_de_jeu); 
-			Map.getContentPane().addMouseListener(new Mouse_info());
+			//Map.getContentPane().addMouseListener(new Mouse_info());
 			Map.setVisible(true);	
 			
 			//instantiation du bouton fin du tour
@@ -80,6 +80,7 @@ public class Plateau_de_jeu extends JPanel{
 			bouton_fin_tour.setOpaque(false);
 			bouton_fin_tour.setContentAreaFilled(false);
 			bouton_fin_tour.setBorderPainted(false);
+			bouton_fin_tour.setName("bouton_fin_tour");
 			Map.add(bouton_fin_tour);
 			bouton_fin_tour.setBounds(750, 750, 280, 90);
 			bouton_fin_tour.addMouseListener(new Mouse_function());
