@@ -8,6 +8,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,12 +23,17 @@ public class Plateau_de_jeu extends JPanel{
 	private ImageIcon icoplateau;
 	private Image imgplateau;
 	
+	private static JButton bouton_fin_tour = new JButton();
+	private static ImageIcon icoBoutonfin;
+	
 	//constructeur du plateau de jeu
 	public Plateau_de_jeu() {
 		super();
 		icoplateau = new ImageIcon(getClass().getResource("/image/Map.jpg"));
 		this.imgplateau = this.icoplateau.getImage();
 		this.imgplateau = ScaledImage(imgplateau, 1874, 865);	
+		
+		icoBoutonfin = new ImageIcon(getClass().getResource("/image/bouton_fin_tour.png"));
 	}
 	
 	
@@ -66,8 +72,20 @@ public class Plateau_de_jeu extends JPanel{
 			Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
 			Map.setContentPane(plateau_de_jeu); 
 			Map.getContentPane().addMouseListener(new Mouse_info());
-			Map.setVisible(true);			
+			Map.setVisible(true);	
+			
+			//instantiation du bouton fin du tour
+			bouton_fin_tour = new JButton(icoBoutonfin);
+			Map.setLayout(null);
+			bouton_fin_tour.setOpaque(false);
+			bouton_fin_tour.setContentAreaFilled(false);
+			bouton_fin_tour.setBorderPainted(false);
+			Map.add(bouton_fin_tour);
+			bouton_fin_tour.setBounds(750, 750, 280, 90);
+			bouton_fin_tour.addMouseListener(new Mouse_function());
 	}
+	
+	
 	
 	
 }

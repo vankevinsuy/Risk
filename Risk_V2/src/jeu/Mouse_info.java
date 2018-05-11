@@ -96,4 +96,8 @@ public class Mouse_info extends MouseAdapter{
 		}
 		
 	}
+
+	
+	
+
 }
