@@ -1,23 +1,21 @@
 package jeu;
 
+import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import introduction.Windows_intro;
-
 public class Mouse_function extends MouseAdapter{
-
+	Graphics g;
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-		
-		if (e.getComponent().getName().toString() == "bouton_fin_tour") {
-		Maitre_du_jeu.setJoueur_actuel(Maitre_du_jeu.getJoueur_actuel() + 1);
-		System.out.println("Tour joueur " + Maitre_du_jeu.getJoueur_actuel());
-		
-			if (Maitre_du_jeu.getJoueur_actuel() == Windows_intro.nombre_de_joueur) {
-				Maitre_du_jeu.setJoueur_actuel(0);
-			}
+		if (e.getComponent().getName().toString() == "Plateau_de_jeu") {
+			g.drawOval(0, 0, 50, 50);
+		    g.fillOval(0, 0, 50, 50);
+		    
 		}
 	}
 }

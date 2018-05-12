@@ -21,7 +21,7 @@ public class Maitre_du_jeu {
 	public static void setJoueur_actuel(int joueur_actuel) {
 		Maitre_du_jeu.joueur_actuel = joueur_actuel;
 	}
-
-
-
+	
+	
+	
 }
