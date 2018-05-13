@@ -53,10 +53,12 @@ public class Plateau_de_jeu extends JPanel{
 	
 	
 	//methode qui peint les images sur la fenetre 
-	@Override
+	//@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(imgplateau,0,0,null);
+		Graphics g2 = (Graphics2D) g ;
+		g2.drawImage(imgplateau,0, 0,null);
+		//g2.drawImage(imgpion ,100,100,null);  //afficher un pion
 	}
 	
 	
@@ -94,8 +96,7 @@ public class Plateau_de_jeu extends JPanel{
 					xposition = (int) MouseInfo.getPointerInfo().getLocation().getX();
 					yposition = (int) MouseInfo.getPointerInfo().getLocation().getY();
 					if (e.getComponent().getName().toString() == "Plateau_de_jeu") {
-						
-						
+											
 					}
 				}
 			});
@@ -124,7 +125,7 @@ public class Plateau_de_jeu extends JPanel{
 			});
 			
 	}
-
+	
 
 	
 	
