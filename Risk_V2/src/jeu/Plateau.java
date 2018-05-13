@@ -22,6 +22,9 @@ public class Plateau extends JFrame implements MouseListener{
 		super();
 		this.icofond = new ImageIcon(getClass().getResource("/image/Map.jpg"));
 		this.imgfond = this.icofond.getImage();
+		Image newfond = this.imgfond.getScaledInstance(1874, 865, java.awt.Image.SCALE_SMOOTH);
+		this.icofond = new ImageIcon(newfond);
+		
 		JLabel fond = new JLabel(this.icofond);
 		this.add(fond);
 		
