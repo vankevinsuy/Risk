@@ -8,6 +8,7 @@ import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -18,7 +19,7 @@ import introduction.Windows_intro;
 
 
 
-public class Plateau_de_jeu extends JPanel{
+public class Plateau_de_jeu extends JPanel implements MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -89,17 +90,6 @@ public class Plateau_de_jeu extends JPanel{
 			//instancition de l'objet plateau
 			Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu();
 			Map.setContentPane(plateau_de_jeu); 
-			Map.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e);
-					xposition = (int) MouseInfo.getPointerInfo().getLocation().getX();
-					yposition = (int) MouseInfo.getPointerInfo().getLocation().getY();
-					if (e.getComponent().getName().toString() == "Plateau_de_jeu") {
-											
-					}
-				}
-			});
 			Map.setVisible(true);	
 			
 			
@@ -125,6 +115,17 @@ public class Plateau_de_jeu extends JPanel{
 			});
 			
 	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Graphics graphics = getGraphics();
+		graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()-15, null);
+	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
 	
 
 	

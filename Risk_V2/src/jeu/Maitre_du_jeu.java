@@ -8,8 +8,8 @@ public class Maitre_du_jeu {
 
 	public Maitre_du_jeu() {
 		super();
-		//Plateau_de_jeu.Launch();
-		new Plateau();
+		Plateau_de_jeu.Launch();
+		//new Plateau();
 		Windows_intro.window.setVisible(false);
 		System.out.println("game lancée");
 		System.out.println("Tour joueur " + Maitre_du_jeu.getJoueur_actuel());

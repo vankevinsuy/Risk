@@ -78,10 +78,9 @@ public class Windows_intro extends JPanel{
 	
 	public void Launch() {
 		// création d'une fenêtre pour le jeu
-//			JFrame window = new JFrame("Risk");
 			
 			//definir les caractéristiques de la fenêtre
-			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			window.setSize(this.imgbase.getWidth(null), this.imgbase.getHeight(null)+20);//dimension de la fenêtre
 			window.setLocation(0,0); // position de la fenêtre
 			window.setResizable(false);
