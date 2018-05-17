@@ -1,12 +1,5 @@
 package jeu;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,37 +7,62 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class Plateau_de_jeu extends JFrame {
-
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
-	private ImageIcon icofond;
-	private Image imgfond;
-
+	private ImageIcon icopion;
+	private Image imgpion;
+	
+	
 	public Plateau_de_jeu() {
 		
-		this.icofond = new ImageIcon(getClass().getResource("/image/Map.jpg"));
-		this.imgfond = this.icofond.getImage();
-		Image newfond = this.imgfond.getScaledInstance(1874, 865, java.awt.Image.SCALE_SMOOTH);
-		this.icofond = new ImageIcon(newfond);
+		this.icopion = new ImageIcon(getClass().getResource("/image/pion.png"));
+		this.imgpion = this.icopion.getImage();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0,0, this.icofond.getIconWidth()+10, this.icofond.getIconHeight()+200);
+		setBounds(0, 0, 1730, 1000);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel fond = new JLabel("");
-		fond.setIcon(this.icofond);
-		fond.setBounds(0, 0, this.icofond.getIconWidth(), this.icofond.getIconHeight());
+		fond.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Graphics graphics = getGraphics();
+				graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()+15, null);
+			}
+		});
+		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/Map2.jpg")));
+		fond.setBounds(0, 0, 1730, 860);
 		contentPane.add(fond);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton_fin_tour.png")));
-		btnNewButton.setBounds(1500, 900, 285, 87);
-		contentPane.add(btnNewButton);
+		JButton btnJouer = new JButton("");
+		btnJouer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (Maitre_du_jeu.getJoueur_actuel() == Maitre_du_jeu.getNombre_de_joueur()) {
+					Maitre_du_jeu.setJoueur_actuel(1);
+					System.out.println("Tour du joueur " + Maitre_du_jeu.getJoueur_actuel());
+				}
+				else {
+					Maitre_du_jeu.setJoueur_actuel(Maitre_du_jeu.getJoueur_actuel() + 1);
+					System.out.println("Tour du joueur " + Maitre_du_jeu.getJoueur_actuel());
+				}
+
+			}
+		});
+		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton_fin_tour.png")));
+		btnJouer.setBounds(1400, 873, 280, 67);
+		contentPane.add(btnJouer);
 		
 		setVisible(true);
 	}
-	
 }
