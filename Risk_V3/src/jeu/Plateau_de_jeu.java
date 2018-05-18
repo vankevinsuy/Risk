@@ -22,8 +22,7 @@ public class Plateau_de_jeu extends JFrame {
 	
 	public Plateau_de_jeu() {
 		
-		this.icopion = new ImageIcon(getClass().getResource("/image/pion.png"));
-		this.imgpion = this.icopion.getImage();
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1730, 1000);
@@ -44,7 +43,7 @@ public class Plateau_de_jeu extends JFrame {
 		fond.setBounds(0, 0, 1730, 860);
 		contentPane.add(fond);
 		
-		JButton btnJouer = new JButton("");
+		JButton btnJouer = new JButton();
 		btnJouer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -62,6 +61,42 @@ public class Plateau_de_jeu extends JFrame {
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton_fin_tour.png")));
 		btnJouer.setBounds(1400, 873, 280, 67);
 		contentPane.add(btnJouer);
+		
+		JButton btnSoldat = new JButton("");
+		btnSoldat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				icopion = new ImageIcon(getClass().getResource("/image/soldat.png"));
+				imgpion = icopion.getImage();
+			}
+		});
+		btnSoldat.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/soldat.png")));
+		btnSoldat.setBounds(292, 873, 83, 67);
+		contentPane.add(btnSoldat);
+		
+		JButton btnCavalier = new JButton("");
+		btnCavalier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				icopion = new ImageIcon(getClass().getResource("/image/cavalier.png"));
+				imgpion = icopion.getImage();
+			}
+		});
+		btnCavalier.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/cavalier.png")));
+		btnCavalier.setBounds(486, 873, 83, 67);
+		contentPane.add(btnCavalier);
+		
+		JButton btnTank = new JButton("");
+		btnTank.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				icopion = new ImageIcon(getClass().getResource("/image/tank.png"));
+				imgpion = icopion.getImage();
+			}
+		});
+		btnTank.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/tank.png")));
+		btnTank.setBounds(678, 873, 83, 67);
+		contentPane.add(btnTank);
 		
 		setVisible(true);
 	}
