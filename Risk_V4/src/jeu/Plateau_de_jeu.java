@@ -57,6 +57,7 @@ public class Plateau_de_jeu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1730, 1000);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -67,6 +68,7 @@ public class Plateau_de_jeu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				xposition = (int) MouseInfo.getPointerInfo().getLocation().getX();
 				yposition = (int) MouseInfo.getPointerInfo().getLocation().getY();
+				CheckLocation(xposition, yposition);
 				Robot robot = null;
 				try {
 					robot = new Robot();
@@ -82,26 +84,11 @@ public class Plateau_de_jeu extends JFrame {
 					Graphics graphics = getGraphics();
 					graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()+15, null);
 				}
-				
-				for (int i = 0; i < listeTerritoire.size(); i++) {
-					if (listeTerritoire.get(i).getCouleur_territoire().getRed() == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getGreen() == current_color.getGreen()) {
-						System.out.println(listeTerritoire.get(i).getName());
-					}
-					
-					if (listeTerritoire.get(i).getCouleur_territoire().getRed() == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getBlue() == current_color.getBlue()) {
-						System.out.println(listeTerritoire.get(i).getName());
-					}
-					
-					if (listeTerritoire.get(i).getCouleur_territoire().getGreen() == current_color.getGreen() && listeTerritoire.get(i).getCouleur_territoire().getBlue() == current_color.getBlue()){
-						System.out.println(listeTerritoire.get(i).getName());
-					}					
-						
-				}
-				
+
 			}
 		});
-		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.jpg")));
-		fond.setBounds(0, 0, 1730, 860);
+		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
+		fond.setBounds(0, 0, 1730, 799);
 		contentPane.add(fond);
 		
 		
@@ -225,6 +212,60 @@ public class Plateau_de_jeu extends JFrame {
 		btn3.setOpaque(false);
 		btn3.setBorderPainted(false);
 
+	}
+	
+	public void CheckLocation(int x , int y) {
+		Robot robot = null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
+		
+		Color current_color = robot.getPixelColor(x, y);
+		
+		for (int i = 0; i < listeTerritoire.size(); i++) {
+			//clique sur Europe
+			for (int j = 0; j < 7; j++) {
+				for (int k = 0; k < 7; k++) {
+					if (listeTerritoire.get(i).getCouleur_territoire().getRed()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getGreen()+k == current_color.getGreen()) {
+						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
+							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getBlue() == current_color.getBlue()) {
+								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
+							}
+						}
+					}
+				}
+				
+			}
+			
+			// clique sur Asie et Amerique du sud
+			for (int j = 0; j < 7; j++) {
+				for (int k = 0; k < 7; k++) {
+					if (listeTerritoire.get(i).getCouleur_territoire().getRed()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getBlue()+k == current_color.getBlue()){
+						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
+							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getGreen() == current_color.getGreen()) {
+								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
+							}
+						}
+						
+					}
+				}
+			}
+			
+			//clique sur Afrique, Océanie et Amérique du nord
+			for (int j = 0; j < 7; j++) {
+				for (int k = 0; k < 7; k++) {
+					if (listeTerritoire.get(i).getCouleur_territoire().getGreen()+j == current_color.getGreen() && listeTerritoire.get(i).getCouleur_territoire().getBlue()+k == current_color.getBlue()){
+						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
+							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getRed() == current_color.getRed()) {
+								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
+							}
+						}
+					}	
+				}
+			}	
+		}
 	}
 
 }

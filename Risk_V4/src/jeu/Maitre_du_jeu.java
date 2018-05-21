@@ -19,17 +19,30 @@ public class Maitre_du_jeu {
 	private  ArrayList<Joueur> listeJoueur = new ArrayList<Joueur>();
 
 	private Joueur current_player = joueur1;
+	
 
-	private Territoire Asie = new Territoire(new Color(227,0 ,77),"Asie");
-	private Territoire Afrique = new Territoire(new Color(0 ,25, 90),"Afrique");
-	private Territoire Amerique_du_sud = new Territoire(new Color(85, 0 ,89),"Amerique_du_sud");
-	private Territoire Amerique_du_nord = new Territoire(new Color(0,206, 78),"Amerique_du_nord");
-	private Territoire Europe = new Territoire(new Color(139, 149,0),"Europe");
-	private Territoire Oceanie = new Territoire(new Color(0,118, 118),"Oceanie");
+	private Zone zone1;
+	private Zone zone2;
+	private Zone zone3;
+	private Zone zone4;
+	private Zone zone5;
+	private Zone zone6;
+	private Zone zone7;
+	
+	private Zone[]lstZone = {zone1,zone2,zone3,zone4,zone5,zone6,zone7};
+	
+	private Territoire Asie = new Territoire(new Color(227,0 ,77),"Asie", new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	private Territoire Afrique = new Territoire(new Color(0 ,25, 90),"Afrique",  new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	private Territoire Amerique_du_sud = new Territoire(new Color(85, 0 ,89),"Amerique_du_sud",  new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	private Territoire Amerique_du_nord = new Territoire(new Color(0,206, 78),"Amerique_du_nord",  new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	private Territoire Europe = new Territoire(new Color(139, 149,0),"Europe",  new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	private Territoire Oceanie = new Territoire(new Color(0,118, 118),"Oceanie", new Zone[]{zone1,zone2,zone3,zone4,zone5,zone6,zone7});
+	
 	
 	private Territoire[] liste_territoire_possible = {Asie, Afrique, Amerique_du_nord, Amerique_du_sud,Europe,Oceanie};
 	private ArrayList<Territoire> listeTerritoire = new ArrayList<Territoire>();
 	
+
 	
 	//constructeur
 	public Maitre_du_jeu() {
@@ -40,7 +53,6 @@ public class Maitre_du_jeu {
 	public static void main(String[] args) {	
 		Maitre_du_jeu maitre_du_jeu = new Maitre_du_jeu();
 		Introduction introduction = new Introduction(maitre_du_jeu);
-
 	}
 
 	public int getNombre_de_joueur() {
@@ -61,8 +73,9 @@ public class Maitre_du_jeu {
 		for (int i = 0; i < liste_territoire_possible.length; i++) {
 			listeTerritoire.add(liste_territoire_possible[i]);
 		}
+		
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
-
+		
 	}
 	
 }
