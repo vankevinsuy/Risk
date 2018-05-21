@@ -1,9 +1,7 @@
 package jeu;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -12,16 +10,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Plateau_de_jeu extends JFrame {
 	private static final long serialVersionUID = 1L;
+
 
 	private JPanel contentPane;
 
@@ -45,6 +45,7 @@ public class Plateau_de_jeu extends JFrame {
 	private JButton btnjouer;
 
 	private boolean btn_actif = false;
+	private JTable table;
 
 	/**
 	 * Create the frame.
@@ -99,7 +100,7 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
-		fond.setBounds(0, 0, 1730, 799);
+		fond.setBounds(0, 0, 1730, 675);
 		contentPane.add(fond);
 		
 		
@@ -152,7 +153,7 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		this.btnSoldat.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/soldatbtn.png")));
-		this.btnSoldat.setBounds(292, 873, 83, 67);
+		this.btnSoldat.setBounds(79, 873, 83, 67);
 		contentPane.add(this.btnSoldat);
 		
 		
@@ -174,7 +175,7 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		this.btnCavalier.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/cavalierbtn.png")));
-		this.btnCavalier.setBounds(486, 873, 83, 67);
+		this.btnCavalier.setBounds(252, 873, 83, 67);
 		contentPane.add(this.btnCavalier);
 		
 		
@@ -196,8 +197,46 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		this.btnTank.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/tankbtn.png")));
-		this.btnTank.setBounds(678, 873, 83, 67);
+		this.btnTank.setBounds(410, 873, 83, 67);
 		contentPane.add(this.btnTank);
+		
+		
+		//tableau avec les informations du joueur
+		table = new JTable();
+		table.setBounds(554, 828, 834, 112);
+		contentPane.add(table);
+		table.setBackground(Color.WHITE);
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Soldat / Cavalier / Tank", "Zone 1", "Zone 2", "Zone  3", "Zone 4 ", "Zone  5", "Zone  6  ", "Zone  7"},
+				{"Asie", null, null, null, null, null, null, null},
+				{"Afrique", null, null, null, null, null, null, null},
+				{"Am\u00E9rique du sud", null, null, null, null, null, null, null},
+				{"Am\u00E9rique du nord", null, null, null, null, null, null, null},
+				{"Europe", null, null, null, null, null, null, null},
+				{"Oc\u00E9anie", null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(121);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(3).setResizable(false);
+		table.getColumnModel().getColumn(4).setResizable(false);
+		table.getColumnModel().getColumn(5).setResizable(false);
+		table.getColumnModel().getColumn(6).setResizable(false);
+		table.getColumnModel().getColumn(7).setResizable(false);
 		
 		
 		
@@ -283,5 +322,4 @@ public class Plateau_de_jeu extends JFrame {
 			}	
 		}
 	}
-
 }

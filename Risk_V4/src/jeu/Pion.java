@@ -6,7 +6,6 @@ public class Pion {
 	
 	private Color couleur_du_joueur;
 	private String iconePion;
-//	private Joueur joueur;
 	private int nombre_de_pion;
 	
 	
