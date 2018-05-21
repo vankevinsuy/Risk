@@ -44,6 +44,7 @@ public class Plateau_de_jeu extends JFrame {
 	private JButton btnTank;
 	private JButton btnjouer;
 
+	private boolean btn_actif = false;
 
 	/**
 	 * Create the frame.
@@ -76,13 +77,23 @@ public class Plateau_de_jeu extends JFrame {
 					e1.printStackTrace();
 				}
 				Color current_color = robot.getPixelColor(xposition, yposition);
-
+				
+				//si on clique dans le vide on saute une ligne dans la console
 				if (current_color.getRed()==255 && current_color.getGreen()==255 && current_color.getBlue()==255) {
 					System.out.println("");
 				}
 				else {
-					Graphics graphics = getGraphics();
-					graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()+15, null);
+					if (current_player.GestionPion() == true && btn_actif == true) {						
+						System.out.println(current_player.getPions(0).getNombre_de_pion());
+						current_player.getPions(0).setNombre_de_pion(current_player.getPions(0).getNombre_de_pion()-1);
+
+						Graphics graphics = getGraphics();
+						graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()+15, null);
+					}
+					else {
+						System.out.println("Vous n'avez plus de pion. Au joueur suivant");
+					}
+					
 				}
 
 			}
@@ -108,6 +119,8 @@ public class Plateau_de_jeu extends JFrame {
 				}
 				System.out.println("Tour de : "+current_player.getName());
 				ClearBtn_end_round(btnCavalier, btnSoldat, btnTank);
+				btn_actif = false;
+				current_player.ResetRound();
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_jouer.png")));
@@ -124,8 +137,9 @@ public class Plateau_de_jeu extends JFrame {
 		btnSoldat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+	
 				icopion = new ImageIcon(getClass().getResource(current_player.getIcopionSoldat()));	
-				imgpion = icopion.getImage();
+				imgpion = icopion.getImage();			
 				
 				btnSoldat.setContentAreaFilled(true);
 				btnSoldat.setOpaque(true);
@@ -133,7 +147,7 @@ public class Plateau_de_jeu extends JFrame {
 				btnSoldat.setBackground(current_player.getCouleur_joueur());
 				
 				ClearButton(btnCavalier,btnTank);
-				
+				btn_actif = true;
 				
 			}
 		});
@@ -156,6 +170,7 @@ public class Plateau_de_jeu extends JFrame {
 				btnCavalier.setBackground(current_player.getCouleur_joueur());
 
 				ClearButton(btnSoldat, btnTank);
+				btn_actif = true;
 			}
 		});
 		this.btnCavalier.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/cavalierbtn.png")));
@@ -177,6 +192,7 @@ public class Plateau_de_jeu extends JFrame {
 				btnTank.setBackground(current_player.getCouleur_joueur());
 				
 				ClearButton(btnSoldat, btnCavalier);
+				btn_actif = true;
 			}
 		});
 		this.btnTank.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/tankbtn.png")));
