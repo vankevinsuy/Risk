@@ -4,8 +4,7 @@ import java.awt.Color;
 
 public class Pion_Tank extends Pion{
 
-	public Pion_Tank(Color couleur_du_joueur, String iconePion, int nombre_de_pion) {
-		super(couleur_du_joueur, iconePion, nombre_de_pion);
+	public Pion_Tank(String iconePion, int valeur, int xposition, int yposition) {
+		super(iconePion, valeur, xposition, yposition);
 	}
-
 }

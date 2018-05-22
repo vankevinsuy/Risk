@@ -4,39 +4,29 @@ import java.awt.Color;
 
 public class Pion {
 	
-	private Color couleur_du_joueur;
 	private String iconePion;
-	private int nombre_de_pion;
-	
-	
-	
-	
-	public Pion(Color couleur_du_joueur, String iconePion, int nombre_de_pion) {
-		super();
-		this.couleur_du_joueur = couleur_du_joueur;
+	private int valeur;
+	private int xposition;
+	private int yposition;
+	public Pion(String iconePion, int valeur, int xposition, int yposition) {
 		this.iconePion = iconePion;
-		this.nombre_de_pion = nombre_de_pion;
+		this.valeur = valeur;
+		this.xposition = xposition;
+		this.yposition = yposition;
 	}
 	
 	
-	public Color getCouleur_du_joueur() {
-		return couleur_du_joueur;
-	}
-	public void setCouleur_du_joueur(Color couleur_du_joueur) {
-		this.couleur_du_joueur = couleur_du_joueur;
-	}
 	public String getIconePion() {
 		return iconePion;
 	}
-	public void setIconePion(String iconePion) {
-		this.iconePion = iconePion;
+	public int getValeur() {
+		return valeur;
 	}
-
-	public int getNombre_de_pion() {
-		return nombre_de_pion;
+	public int getXposition() {
+		return xposition;
 	}
-	public void setNombre_de_pion(int nombre_de_pion) {
-		this.nombre_de_pion = nombre_de_pion;
+	public int getYposition() {
+		return yposition;
 	}
 
 }
