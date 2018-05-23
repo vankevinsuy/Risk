@@ -43,6 +43,8 @@ public class Plateau_de_jeu extends JFrame {
 	private JButton btnCavalier;
 	private JButton btnTank;
 	private JButton btnjouer;
+	
+	private String current_pion;
 
 	private boolean btn_actif = false;
 	private JTable table;
@@ -70,7 +72,7 @@ public class Plateau_de_jeu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				xposition = (int) MouseInfo.getPointerInfo().getLocation().getX();
 				yposition = (int) MouseInfo.getPointerInfo().getLocation().getY();
-				CheckLocation(xposition, yposition);
+				
 				Robot robot = null;
 				try {
 					robot = new Robot();
@@ -84,23 +86,13 @@ public class Plateau_de_jeu extends JFrame {
 					System.out.println("");
 				}
 				else {
-					if (current_player.GestionPion() == true && btn_actif == true) {						
-						System.out.println(current_player.getPions(0).getNombre_de_pion());
-						current_player.getPions(0).setNombre_de_pion(current_player.getPions(0).getNombre_de_pion()-1);
-
-						Graphics graphics = getGraphics();
-						graphics.drawImage(imgpion, (int)e.getX()-15,(int) e.getY()+15, null);
-					}
-					else {
-						System.out.println("Vous n'avez plus de pion. Au joueur suivant");
-					}
-					
+					CheckLocation(xposition, yposition);
 				}
 
 			}
 		});
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
-		fond.setBounds(0, 0, 1730, 675);
+		fond.setBounds(12, 0, 1700, 815);
 		contentPane.add(fond);
 		
 		
@@ -121,7 +113,8 @@ public class Plateau_de_jeu extends JFrame {
 				System.out.println("Tour de : "+current_player.getName());
 				ClearBtn_end_round(btnCavalier, btnSoldat, btnTank);
 				btn_actif = false;
-				current_player.ResetRound();
+//				current_player.ResetRound();
+				current_pion = null;
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_jouer.png")));
@@ -139,7 +132,7 @@ public class Plateau_de_jeu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 	
-				icopion = new ImageIcon(getClass().getResource(current_player.getIcopionSoldat()));	
+				icopion = new ImageIcon(getClass().getResource(current_player.getCheminicopionSoldat()));	
 				imgpion = icopion.getImage();			
 				
 				btnSoldat.setContentAreaFilled(true);
@@ -149,6 +142,7 @@ public class Plateau_de_jeu extends JFrame {
 				
 				ClearButton(btnCavalier,btnTank);
 				btn_actif = true;
+				current_pion = "soldat";
 				
 			}
 		});
@@ -162,7 +156,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.btnCavalier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				icopion = new ImageIcon(getClass().getResource(current_player.getIcopionCavalier()));
+				icopion = new ImageIcon(getClass().getResource(current_player.getCheminicopionCavalier()));
 				imgpion = icopion.getImage();
 								
 				btnCavalier.setContentAreaFilled(true);
@@ -172,6 +166,7 @@ public class Plateau_de_jeu extends JFrame {
 
 				ClearButton(btnSoldat, btnTank);
 				btn_actif = true;
+				current_pion = "cavalier";
 			}
 		});
 		this.btnCavalier.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/cavalierbtn.png")));
@@ -184,7 +179,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.btnTank.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				icopion = new ImageIcon(getClass().getResource(current_player.getIcopionTank()));
+				icopion = new ImageIcon(getClass().getResource(current_player.getCheminicopionTank()));
 				imgpion = icopion.getImage();
 				
 				btnTank.setContentAreaFilled(true);
@@ -194,6 +189,7 @@ public class Plateau_de_jeu extends JFrame {
 				
 				ClearButton(btnSoldat, btnCavalier);
 				btn_actif = true;
+				current_pion = "tank";
 			}
 		});
 		this.btnTank.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/tankbtn.png")));
@@ -222,6 +218,8 @@ public class Plateau_de_jeu extends JFrame {
 				"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 			}
 		) {
+
+			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
 				true, false, false, false, false, false, false, false
 			};
@@ -278,48 +276,105 @@ public class Plateau_de_jeu extends JFrame {
 		}
 		
 		Color current_color = robot.getPixelColor(x, y);
-		
-		for (int i = 0; i < listeTerritoire.size(); i++) {
-			//clique sur Europe
-			for (int j = 0; j < 7; j++) {
-				for (int k = 0; k < 7; k++) {
-					if (listeTerritoire.get(i).getCouleur_territoire().getRed()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getGreen()+k == current_color.getGreen()) {
-						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
-							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getBlue() == current_color.getBlue()) {
-								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
+		if (btn_actif == true) {
+						for (int i = 0; i < listeTerritoire.size(); i++) {
+				//clique sur Europe
+				for (int j = 0; j < 7; j++) {
+					for (int k = 0; k < 7; k++) {
+						if (listeTerritoire.get(i).getCouleur_primaire_territoire1()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2()+k == current_color.getGreen()) {
+							for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+								if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getBlue() == current_color.getBlue()) {
+									System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+									
+									if (current_pion == "soldat") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+
+									}
+									
+									if (current_pion == "cavalier") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreCavalier(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentrecavalier(), null);	
+
+									}
+									
+									if (current_pion == "tank") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreTank(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreTank(), null);	
+
+									}
+									
+								}
 							}
+						}
+					}
+					
+				}
+				
+				// clique sur Asie et Amerique du sud
+				for (int j = 0; j < 2; j++) {
+					for (int k = 0; k < 2; k++) {
+						if (listeTerritoire.get(i).getCouleur_primaire_territoire1()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2()+k == current_color.getBlue()){
+							for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+								if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getGreen() == current_color.getGreen()) {
+									System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+									
+									if (current_pion == "soldat") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+
+									}
+									
+									if (current_pion == "cavalier") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreCavalier(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentrecavalier(), null);	
+
+									}
+									
+									if (current_pion == "tank") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreTank(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreTank(), null);	
+
+									}
+								}
+							}
+							
 						}
 					}
 				}
 				
-			}
-			
-			// clique sur Asie et Amerique du sud
-			for (int j = 0; j < 7; j++) {
-				for (int k = 0; k < 7; k++) {
-					if (listeTerritoire.get(i).getCouleur_territoire().getRed()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_territoire().getBlue()+k == current_color.getBlue()){
-						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
-							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getGreen() == current_color.getGreen()) {
-								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
+				//clique sur Afrique, Océanie et Amérique du nord
+				for (int j = 0; j < 7; j++) {
+					for (int k = 0; k < 7; k++) {
+						if (listeTerritoire.get(i).getCouleur_primaire_territoire1()+j == current_color.getGreen() && listeTerritoire.get(i).getCouleur_primaire_territoire2()+k == current_color.getBlue()){
+							for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+								if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getRed() == current_color.getRed()) {
+									System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+									
+									if (current_pion == "soldat") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+
+									}
+									
+									if (current_pion == "cavalier") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreCavalier(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentrecavalier(), null);	
+
+									}
+									
+									if (current_pion == "tank") {
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreTank(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreTank(), null);	
+
+									}
+								}
 							}
-						}
-						
+						}	
 					}
-				}
+				}	
 			}
-			
-			//clique sur Afrique, Océanie et Amérique du nord
-			for (int j = 0; j < 7; j++) {
-				for (int k = 0; k < 7; k++) {
-					if (listeTerritoire.get(i).getCouleur_territoire().getGreen()+j == current_color.getGreen() && listeTerritoire.get(i).getCouleur_territoire().getBlue()+k == current_color.getBlue()){
-						for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().length ; l++) {
-							if (listeTerritoire.get(i).getListe_zone_possible()[l].getCouleur_territoire().getRed() == current_color.getRed()) {
-								System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible()[l].getNum_zone());
-							}
-						}
-					}	
-				}
-			}	
 		}
+
 	}
 }

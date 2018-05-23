@@ -32,12 +32,12 @@ public class Maitre_du_jeu {
 	private Joueur current_player = joueur1;
 	
 	
-	private Territoire Asie = new Territoire(new Color(227,0 ,77),"Asie");
-	private Territoire Afrique = new Territoire(new Color(0 ,25, 90),"Afrique");
-	private Territoire Amerique_du_sud = new Territoire(new Color(85, 0 ,89),"Amerique_du_sud");
-	private Territoire Amerique_du_nord = new Territoire(new Color(0,206, 78),"Amerique_du_nord");
-	private Territoire Europe = new Territoire(new Color(139, 149,0),"Europe");
-	private Territoire Oceanie = new Territoire(new Color(0,118, 118),"Oceanie");
+	private Territoire Asie = new Territoire(227,78 ,"Asie");
+	private Territoire Afrique = new Territoire(25,90,"Afrique");
+	private Territoire Amerique_du_sud = new Territoire(85,89,"Amerique_du_sud");
+	private Territoire Amerique_du_nord = new Territoire(206,78,"Amerique_du_nord");
+	private Territoire Europe = new Territoire(139,149,"Europe");
+	private Territoire Oceanie = new Territoire(118,118,"Oceanie");
 	
 	
 	private Territoire[] liste_territoire_possible = {Asie, Afrique, Amerique_du_nord, Amerique_du_sud,Europe,Oceanie};
@@ -64,7 +64,7 @@ public class Maitre_du_jeu {
 		this.nombre_de_joueur = nombre_de_joueur;
 	}
 	
-	public void LaunchGame() throws IOException {
+	public void LaunchGame() {
 		System.out.println("Game lancée !  //maitre du jeu ");
 		System.out.println("Tour de " + current_player .getName() + " //maitre du jeu");
 		
@@ -81,7 +81,27 @@ public class Maitre_du_jeu {
 		for (int i = 0; i < listeTerritoire.size(); i++) {
 			for (int j = 0; j < 7 ; j++) {
 				if (listeTerritoire.get(i).getName() == "Asie") {
-					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(227, listeTerritoire.get(i).getCouleur_territoire().getGreen() - (10*j) , 77)));
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), 180 - (10*j) , listeTerritoire.get(i).getCouleur_primaire_territoire2())));
+				}
+				
+				if (listeTerritoire.get(i).getName() == "Afrique") {
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color( 170 - (10*j),listeTerritoire.get(i).getCouleur_primaire_territoire1(),listeTerritoire.get(i).getCouleur_primaire_territoire2())));
+				}
+				
+				if (listeTerritoire.get(i).getName() == "Amerique_du_sud") {
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), 180 - (10*j) ,listeTerritoire.get(i).getCouleur_primaire_territoire2())));
+				}
+				
+				if (listeTerritoire.get(i).getName() == "Amerique_du_nord") {
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(150 - (10*j),listeTerritoire.get(i).getCouleur_primaire_territoire1(), listeTerritoire.get(i).getCouleur_primaire_territoire2())));
+				}
+				
+				if (listeTerritoire.get(i).getName() == "Europe") {
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), listeTerritoire.get(i).getCouleur_primaire_territoire2(), 250 - (10*j))));
+				}
+				
+				if (listeTerritoire.get(i).getName() == "Oceanie") {
+					listeTerritoire.get(i).AddZone(new Zone(listeTerritoire.get(i).getName(), j+1, new Color(240 - (10*j),118, 118)));
 				}
 				
 			}

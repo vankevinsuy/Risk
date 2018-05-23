@@ -14,68 +14,128 @@ public class Zone {
 	private String Nom_du_territoire;
 	private int num_zone;
 	private Color couleur_zone;
-	private ArrayList<Integer> xList; //liste qui va permettre de calculer les centres des zones
-	private ArrayList<Integer> yList;
-	private ImageIcon icon;
-		
-	private int xpositionCentre;
-	private int ypositionCentre;
 
+		
+	private int xpositionCentreSoldat;
+	private int ypositionCentreSoldat;
 	
+	private int xpositionCentreCavalier;
+	private int ypositionCentrecavalier;
 	
-	public Zone(String nom_du_territoire, int num_zone, Color couleur_zone) throws IOException {
+	private int xpositionCentreTank;
+	private int ypositionCentreTank;
+
+	private ArrayList<Integer> xList = new ArrayList<Integer>(); //liste qui va permettre de calculer les centres des zones
+	private ArrayList<Integer> yList = new ArrayList<Integer>();
+	
+	public Zone(String nom_du_territoire, int num_zone, Color couleur_zone) {
 		super();
 		Nom_du_territoire = nom_du_territoire;
 		this.num_zone = num_zone;
 		this.couleur_zone = couleur_zone;
-		this.icon = new ImageIcon(getClass().getResource("/image/Map.png"));
-		CalculateXcentre();
-		CalculateYcentre();
+		CalculateXcentre_Soldat();
+		CalculateYcentreSoldat();
+		CalculateXcentre_Cavalier();
+		CalculateYcentreCavalier();
+		CalculateXcentre_Tank();
+		CalculateYcentreTank();
+		//System.out.println(this.Nom_du_territoire +" " + " zone " + this.num_zone + "= " +this.xpositionCentreSoldat + " " + this.ypositionCentreSoldat);
 	}
 	
-	
-	private void CalculateXcentre() throws IOException {
-		 File file= new File("C:\\Users\\vanke\\Desktop\\codeJava\\Frame\\src\\image\\Map.png");
-		 BufferedImage image = ImageIO.read(file);
-
-		for (int x = 0; x< this.icon.getIconWidth(); x++) {
-			for (int y = 0; y < this.icon.getIconHeight(); y++) {
-				 int clr=  image.getRGB(x,y);		  
-				 int  red   = (clr & 0x00ff0000) >> 16;
-				 int  green = (clr & 0x0000ff00) >> 8;
-				 int  blue  =  clr & 0x000000ff;
+	public void CalculateXcentre_Soldat(){
+		BufferedImage image = null;
+		File source = new File("C:\\Users\\vanke\\Desktop\\codeJava\\Frame\\src\\image\\Map.png");
+		try {
+			
+			image = ImageIO.read(source);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		
+		for (int x = 0; x< image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
+		 		 Color color = new Color(image.getRGB(x, y));
+				 int red = color.getRed();
+				 int green = color.getGreen();
+				 int blue = color.getBlue();
 				if (red ==(int)this.couleur_zone.getRed() && green == (int)this.couleur_zone.getGreen() && blue == (int)this.couleur_zone.getBlue()) {
-					this.xList.add(x);
+					xList.add(x);
 				}
 			}
 		}
-		for (int i = 0; i < this.xList.size(); i++) {
-			this.xpositionCentre = this.xpositionCentre + this.xList.get(i);
+		for (int i = 0; i < xList.size(); i++) {
+			this.xpositionCentreSoldat = this.xpositionCentreSoldat + xList.get(i);			
 		}
-		this.xpositionCentre = this.xpositionCentre/this.xList.size();	
+		this.xpositionCentreSoldat = this.xpositionCentreSoldat/xList.size();	
 	}
 	
+	
 
-	private void CalculateYcentre() throws IOException {
-		 File file= new File("C:\\Users\\vanke\\Desktop\\codeJava\\Frame\\src\\image\\Map.png");
-		 BufferedImage image = ImageIO.read(file);
-
-		for (int x = 0; x< this.icon.getIconWidth(); x++) {
-			for (int y = 0; y < this.icon.getIconHeight(); y++) {
-				 int clr=  image.getRGB(x,y);		  
-				 int  red   = (clr & 0x00ff0000) >> 16;
-				 int  green = (clr & 0x0000ff00) >> 8;
-				 int  blue  =  clr & 0x000000ff;
+	public void CalculateYcentreSoldat(){
+		BufferedImage image = null;
+		File source = new File("C:\\Users\\vanke\\Desktop\\codeJava\\Frame\\src\\image\\Map.png");
+		try {
+			
+			image = ImageIO.read(source);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		
+		for (int x = 0; x< image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
+		 		 Color color = new Color(image.getRGB(x, y));
+				 int red = color.getRed();
+				 int green = color.getGreen();
+				 int blue = color.getBlue();
 				if (red ==(int)this.couleur_zone.getRed() && green == (int)this.couleur_zone.getGreen() && blue == (int)this.couleur_zone.getBlue()) {
-					this.yList.add(y);
+					yList.add(y);
 				}
 			}
 		}
-		for (int i = 0; i < this.yList.size(); i++) {
-			this.ypositionCentre = this.ypositionCentre + this.yList.get(i);
+		for (int i = 0; i < yList.size(); i++) {
+			if (yList.size() == 0) {
+				System.out.println("p");
+			}
+			else {
+				this.ypositionCentreSoldat = this.ypositionCentreSoldat + yList.get(i);
+			}
+			
 		}
-		this.ypositionCentre = this.ypositionCentre/this.yList.size();	
+		this.ypositionCentreSoldat = this.ypositionCentreSoldat/yList.size();	
 	}
+	
+	
+	public void CalculateXcentre_Cavalier(){
+		this.xpositionCentreCavalier = this.xpositionCentreSoldat - 20;
+	}
+	
+	
+	public void CalculateYcentreCavalier(){
+		this.ypositionCentrecavalier = this.ypositionCentreSoldat +20;
+	}
+	
+	
+	
+	public void CalculateXcentre_Tank(){
+		this.xpositionCentreTank = this.xpositionCentreSoldat +20;
+	}
+	
+	
+	
+	public void CalculateYcentreTank(){
+		this.ypositionCentreTank = this.ypositionCentreSoldat+20;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public String getNom_du_territoire() {
 		return Nom_du_territoire;
@@ -102,12 +162,28 @@ public class Zone {
 	}
 
 
-	public int getXpositionCentre() {
-		return xpositionCentre;
+	public int getXpositionCentreSoldat() {
+		return xpositionCentreSoldat;
 	}
 
 
-	public int getYpositionCentre() {
-		return ypositionCentre;
+	public int getYpositionCentreSoldat() {
+		return ypositionCentreSoldat;
+	}
+
+	public int getXpositionCentreCavalier() {
+		return xpositionCentreCavalier;
+	}
+
+	public int getYpositionCentrecavalier() {
+		return ypositionCentrecavalier;
+	}
+
+	public int getYpositionCentreTank() {
+		return ypositionCentreTank;
+	}
+
+	public int getXpositionCentreTank() {
+		return xpositionCentreTank;
 	}
 }

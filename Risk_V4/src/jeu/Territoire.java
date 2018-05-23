@@ -5,21 +5,30 @@ import java.util.ArrayList;
 
 public class Territoire {
 
-	private Color couleur_territoire;
+
+	private int couleur_primaire_territoire1;
+	private int couleur_primaire_territoire2;
 	private String Name;
 	private ArrayList<Zone> liste_zone_possible;
 	
 	
-	public Territoire(Color couleur_territoire, String name) {
+	public Territoire(int couleur_primaire_territoire1,int couleur_primaire_territoire2 , String name) {
 		super();
-		this.couleur_territoire = couleur_territoire;
+		this.couleur_primaire_territoire1 = couleur_primaire_territoire1;
+		this.couleur_primaire_territoire2 = couleur_primaire_territoire2;
 		Name = name;
 		this.liste_zone_possible = new ArrayList<Zone>();
 	}
 
 
-	public Color getCouleur_territoire() {
-		return couleur_territoire;
+
+	public int getCouleur_primaire_territoire1() {
+		return couleur_primaire_territoire1;
+	}
+
+
+	public int getCouleur_primaire_territoire2() {
+		return couleur_primaire_territoire2;
 	}
 
 
