@@ -84,7 +84,15 @@ public class Joueur {
 		return name;
 	}
 
-	
+	public ArrayList<Pion_soldat> getListe_de_pion_soldatinZone(int numZone) {
+		ArrayList<Pion_soldat> liste = new ArrayList<Pion_soldat>();
+		for (int i = 0; i < this.liste_de_pion_soldat.size(); i++) {
+			if (this.liste_de_pion_soldat.get(i).getZone().getNum_zone() == numZone) {
+				liste.add(this.getListe_de_pion_soldat().get(i));
+			}
+		}
+		return liste;
+	}
 	
 	
 	

@@ -1,0 +1,2 @@
+ERROR - 21:36:06: org.xml.sax.SAXParseExceptionpublicId: /Risk_V4/src/jeu/Introduction.java; systemId: file:///Risk_V4/src/jeu/Introduction.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.
+ERROR - 21:36:06: org.xml.sax.SAXParseExceptionpublicId: /Risk_V4/src/jeu/Introduction.java; systemId: file:///Risk_V4/src/jeu/Introduction.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.

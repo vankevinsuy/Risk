@@ -107,6 +107,7 @@ public class Maitre_du_jeu {
 			}
 		}
 		
+		joueur1.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone("Asie", 2 ,new Color(227, 180, 77))));
 		
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
 		

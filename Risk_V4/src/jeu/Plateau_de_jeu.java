@@ -211,7 +211,7 @@ public class Plateau_de_jeu extends JFrame {
 				{"Afrique", null, null, null, null, null, null, null},
 				{"Am\u00E9rique du sud", null, null, null, null, null, null, null},
 				{"Am\u00E9rique du nord", null, null, null, null, null, null, null},
-				{"Europe", null, null, null, null, null, null, null},
+				{"Europe", current_player.getListe_de_pion_soldatinZone(1).size(), null, null, null, null, null, null},
 				{"Oc\u00E9anie", null, null, null, null, null, null, null},
 			},
 			new String[] {
@@ -289,6 +289,8 @@ public class Plateau_de_jeu extends JFrame {
 									if (current_pion == "soldat") {
 										Graphics graphics = getGraphics();
 										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+										current_player.Add_Soldat(1, new Pion_soldat(current_player.getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone(), listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone())));
+										System.out.println(current_player.getListe_de_pion_soldat().size());
 
 									}
 									

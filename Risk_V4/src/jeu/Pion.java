@@ -6,27 +6,24 @@ public class Pion {
 	
 	private String iconePion;
 	private int valeur;
-	private int xposition;
-	private int yposition;
-	public Pion(String iconePion, int valeur, int xposition, int yposition) {
+	private Zone zone;
+	public Pion(String iconePion, Zone zone) {
 		this.iconePion = iconePion;
-		this.valeur = valeur;
-		this.xposition = xposition;
-		this.yposition = yposition;
+		this.zone=zone;
 	}
 	
 	
+	public Zone getZone() {
+		return zone;
+	}
+
+
 	public String getIconePion() {
 		return iconePion;
 	}
 	public int getValeur() {
 		return valeur;
 	}
-	public int getXposition() {
-		return xposition;
-	}
-	public int getYposition() {
-		return yposition;
-	}
+
 
 }
