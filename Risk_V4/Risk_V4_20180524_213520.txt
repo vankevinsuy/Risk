@@ -1,7 +1,0 @@
-ERROR - 21:35:20: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 1 de la séquence UTF-8 à 1 octets non valide.
-ERROR - 21:35:20: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 1 de la séquence UTF-8 à 1 octets non valide.
-ERROR - 21:35:37: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 1 de la séquence UTF-8 à 1 octets non valide.
-ERROR - 21:35:38: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 1 de la séquence UTF-8 à 1 octets non valide.
-WARNING - 21:36:05: Convert Risk_V4
-ERROR - 21:36:06: org.xml.sax.SAXParseExceptionpublicId: /Risk_V4/src/jeu/Introduction.java; systemId: file:///Risk_V4/src/jeu/Introduction.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.
-ERROR - 21:36:06: org.xml.sax.SAXParseExceptionpublicId: /Risk_V4/src/jeu/Introduction.java; systemId: file:///Risk_V4/src/jeu/Introduction.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.

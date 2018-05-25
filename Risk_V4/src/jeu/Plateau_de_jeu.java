@@ -130,7 +130,7 @@ public class Plateau_de_jeu extends JFrame {
 						}));
 			}
 		});
-		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_jouer.png")));
+		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_fin_tour.png")));
 		btnJouer.setBounds(1400, 873, 280, 67);
 		btnJouer.setOpaque(false);
 		btnJouer.setContentAreaFilled(false);
