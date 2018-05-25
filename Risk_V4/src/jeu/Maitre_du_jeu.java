@@ -133,9 +133,13 @@ public class Maitre_du_jeu {
 			}
 		}
 
-//		joueur1.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));        
+		joueur1.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));        
+		joueur2.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));
+		joueur3.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));
+		joueur4.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));
+		joueur5.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));
+		joueur6.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));
 
-		
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
 		
 	}
