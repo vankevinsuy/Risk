@@ -25,13 +25,13 @@ public class Maitre_du_jeu {
 	private  Joueur joueur6 = new Joueur("/image/ico_bouton_joueur6/soldat.png","/image/ico_bouton_joueur6/cavalier.png","/image/ico_bouton_joueur6/tank.png","tristana",new Color(253, 126, 0));
 	
 	
-	
+	// Initialistion des joueurs 
 	private  Joueur[] listeJoueurPossible = {joueur1, joueur2,joueur3,joueur4,joueur5,joueur6};
 	private  ArrayList<Joueur> listeJoueur = new ArrayList<Joueur>();
 
 	private Joueur current_player = joueur1;
 	
-	
+	//Initialisation des territoires 
 	private Territoire Asie = new Territoire(227,78 ,"Asie");
 	private Territoire Afrique = new Territoire(25,90,"Afrique");
 	private Territoire Amerique_du_sud = new Territoire(85,89,"Amerique_du_sud");
