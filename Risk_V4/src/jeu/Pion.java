@@ -1,7 +1,5 @@
 package jeu;
 
-import java.awt.Color;
-
 public class Pion {
 	
 	private String iconePion;
@@ -10,6 +8,7 @@ public class Pion {
 	public Pion(String iconePion, Zone zone) {
 		this.iconePion = iconePion;
 		this.zone=zone;
+
 	}
 	
 	

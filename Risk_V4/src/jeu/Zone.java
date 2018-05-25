@@ -39,7 +39,7 @@ public class Zone {
 		CalculateYcentreCavalier();
 		CalculateXcentre_Tank();
 		CalculateYcentreTank();
-		//System.out.println(this.Nom_du_territoire +" " + " zone " + this.num_zone + "= " +this.xpositionCentreSoldat + " " + this.ypositionCentreSoldat);
+		System.out.println(this.Nom_du_territoire +" " + " zone " + this.num_zone + "= " +this.xpositionCentreSoldat + " " + this.ypositionCentreSoldat);
 	}
 	
 	public void CalculateXcentre_Soldat(){
