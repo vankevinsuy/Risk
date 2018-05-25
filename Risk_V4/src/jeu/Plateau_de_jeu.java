@@ -288,7 +288,7 @@ public class Plateau_de_jeu extends JFrame {
 						if (listeTerritoire.get(i).getCouleur_primaire_territoire1()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2()+k == current_color.getGreen()) {
 							for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
 								if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getBlue() == current_color.getBlue()) {
-									System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+									//System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
 									
 									if (current_pion == "soldat") {
 										Graphics graphics = getGraphics();
