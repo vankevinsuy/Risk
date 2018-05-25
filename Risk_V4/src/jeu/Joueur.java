@@ -14,7 +14,7 @@ public class Joueur {
 	private ArrayList<Pion_Cavalier> liste_de_pion_cavalier;
 	private ArrayList<Pion_Tank> liste_de_pion_tank;
 	private String name;
-
+	private int armee;
 
 	public Joueur(String icopionSoldat,String icopionCavalier,String icopionTank, String name , Color couleur_joueur) {
 		this.cheminicopionSoldat = icopionSoldat;
@@ -112,6 +112,16 @@ public class Joueur {
 			}
 		}
 		return liste;
+	}
+
+
+	public int getArmee() {
+		return armee;
+	}
+
+
+	public void setArmee(int armee) {
+		this.armee = armee;
 	}
 	
 	

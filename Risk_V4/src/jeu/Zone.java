@@ -44,7 +44,7 @@ public class Zone {
 	
 	public void CalculateXcentre_Soldat(){
 		BufferedImage image = null;
-		File source = new File("C:\\Users\\vanke\\Desktop\\Risk\\Risk_V4\\src\\image\\map_piece\\Map.png");
+		File source = new File("src\\image\\map_piece\\Map.png");
 		try {
 			
 			image = ImageIO.read(source);
@@ -73,7 +73,7 @@ public class Zone {
 
 	public void CalculateYcentreSoldat(){
 		BufferedImage image = null;
-		File source = new File("C:\\Users\\vanke\\Desktop\\Risk\\Risk_V4\\src\\image\\map_piece\\Map.png");
+		File source = new File("src\\image\\map_piece\\Map.png");
 		try {
 			
 			image = ImageIO.read(source);

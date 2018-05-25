@@ -1,11 +1,7 @@
 package jeu;
 
 import java.awt.Color;
-import java.awt.Image;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
 
 public class Maitre_du_jeu {
 	
@@ -107,7 +103,38 @@ public class Maitre_du_jeu {
 			}
 		}
 		
-		joueur1.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone("Asie", 2 ,new Color(227, 180, 77))));
+		if (nombre_de_joueur == 2) {
+			for (int i = 0; i < listeJoueur.size(); i++) {
+				listeJoueur.get(i).setArmee(40);
+			}
+		}
+		
+		if (nombre_de_joueur == 3) {
+			for (int i = 0; i < listeJoueur.size(); i++) {
+				listeJoueur.get(i).setArmee(35);
+			}
+		}
+		
+		if (nombre_de_joueur == 4) {
+			for (int i = 0; i < listeJoueur.size(); i++) {
+				listeJoueur.get(i).setArmee(30);
+			}
+		}
+		
+		if (nombre_de_joueur == 5) {
+			for (int i = 0; i < listeJoueur.size(); i++) {
+				listeJoueur.get(i).setArmee(25);
+			}
+		}
+		
+		if (nombre_de_joueur == 6) {
+			for (int i = 0; i < listeJoueur.size(); i++) {
+				listeJoueur.get(i).setArmee(20);
+			}
+		}
+
+//		joueur1.Add_Soldat(2, new Pion_soldat(joueur1.getCheminicopionSoldat(), new Zone(listeTerritoire.get((int)Math.random()).getName(), 2 ,new Color(227, 180, 77))));        
+
 		
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
 		

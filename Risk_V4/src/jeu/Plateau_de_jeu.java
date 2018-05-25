@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import java.awt.Font;
 
 public class Plateau_de_jeu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +40,7 @@ public class Plateau_de_jeu extends JFrame {
 	private  ArrayList<Joueur> listeJoueur;
 	private  ArrayList<Territoire> listeTerritoire;	
 	
+	private boolean phase_de_jeu; // true pour attaque  false pour poser les pions
 	private int index = 0;
 
 	private JButton btnSoldat;
@@ -48,6 +52,10 @@ public class Plateau_de_jeu extends JFrame {
 
 	private boolean btn_actif = false;
 	private JTable table;
+	private JLabel current_player_displyed_info;
+	private JLabel nb_reste_cavalier;
+	private JLabel nb_reste_tank;
+	private JLabel nb_reste_soldat;
 
 	/**
 	 * Create the frame.
@@ -57,6 +65,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.listeJoueur = listeJoueur;
 		this.current_player = listeJoueur.get(this.index);
 		this.listeTerritoire = listeTerritoire;
+		this.phase_de_jeu = false;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1730, 1000);
@@ -86,11 +95,37 @@ public class Plateau_de_jeu extends JFrame {
 					System.out.println("");
 				}
 				else {
-					CheckLocation(xposition, yposition);
+					if (phase_de_jeu == false) {
+						PlacerPion(xposition, yposition);
+					}
+					else {
+						Attaque();
+					}
+					
 				}
+				nb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+				nb_reste_cavalier.setText(Integer.toString(current_player.getArmee()));
+				nb_reste_tank.setText(Integer.toString(current_player.getArmee()));
 
 			}
 		});
+		
+		nb_reste_cavalier = new JLabel(Integer.toString(current_player.getArmee()));
+		nb_reste_cavalier.setBounds(252, 827, 56, 16);
+		contentPane.add(nb_reste_cavalier);
+		
+		nb_reste_tank = new JLabel(Integer.toString(current_player.getArmee()));
+		nb_reste_tank.setBounds(410, 827, 56, 16);
+		contentPane.add(nb_reste_tank);
+		
+		nb_reste_soldat = new JLabel(Integer.toString(current_player.getArmee()));
+		nb_reste_soldat.setBounds(92, 827, 56, 16);
+		contentPane.add(nb_reste_soldat);
+		
+		current_player_displyed_info = new JLabel("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+		current_player_displyed_info.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		current_player_displyed_info.setBounds(554, 723, 377, 67);
+		contentPane.add(current_player_displyed_info);
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
 		fond.setBounds(12, 0, 1700, 815);
 		contentPane.add(fond);
@@ -128,6 +163,11 @@ public class Plateau_de_jeu extends JFrame {
 						new String[] {
 							"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 						}));
+				current_player_displyed_info.setText("Tour de " + current_player.getName());
+				nb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+				nb_reste_cavalier.setText(Integer.toString(current_player.getArmee()));
+				nb_reste_tank.setText(Integer.toString(current_player.getArmee()));
+
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_fin_tour.png")));
@@ -271,7 +311,7 @@ public class Plateau_de_jeu extends JFrame {
 
 	}
 	
-	public void CheckLocation(int x , int y) {
+	public void PlacerPion(int x , int y) {
 		Robot robot = null;
 		try {
 			robot = new Robot();
@@ -507,4 +547,7 @@ public class Plateau_de_jeu extends JFrame {
 
 	}
 
+	public void Attaque() {
+		
+	}
 }
