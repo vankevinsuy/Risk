@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Plateau_de_jeu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -50,12 +52,17 @@ public class Plateau_de_jeu extends JFrame {
 	
 	private String current_pion;
 
-	private boolean btn_actif = false;
+	private boolean btn_actif_soldat = false;
+	private boolean btn_actif_cavalier = false;
+	private boolean btn_actif_tank = false;
 	private JTable table;
 	private JLabel current_player_displyed_info;
-	private JLabel nb_reste_cavalier;
-	private JLabel nb_reste_tank;
-	private JLabel nb_reste_soldat;
+	private JLabel lblnb_reste_cavalier;
+	private JLabel lblnb_reste_tank;
+	private JLabel lblnb_reste_soldat;
+
+	
+	
 
 	/**
 	 * Create the frame.
@@ -66,6 +73,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.current_player = listeJoueur.get(this.index);
 		this.listeTerritoire = listeTerritoire;
 		this.phase_de_jeu = false;
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1730, 1000);
@@ -74,6 +82,8 @@ public class Plateau_de_jeu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		
 		
 		JLabel fond = new JLabel("");
 		fond.addMouseListener(new MouseAdapter() {
@@ -93,34 +103,68 @@ public class Plateau_de_jeu extends JFrame {
 				//si on clique dans le vide on saute une ligne dans la console
 				if (current_color.getRed()==255 && current_color.getGreen()==255 && current_color.getBlue()==255) {
 					System.out.println("");
+
 				}
 				else {
-					if (phase_de_jeu == false) {
-						PlacerPion(xposition, yposition);
-					}
-					else {
+					if (current_player.getArmee() <= 0) {
+						btn_actif_soldat = false;
+						btn_actif_cavalier = false;
+						btn_actif_tank =false;
 						Attaque();
 					}
-					
+					else {
+
+						PlacerPion(xposition, yposition);
+						if (current_player.getArmee()-7 < 0) {
+							btnTank.setEnabled(false);
+							btn_actif_tank = false;
+							imgpion = null;
+							lblnb_reste_tank.setText("0");
+						}
+
+						
+						if (current_player.getArmee()-1< 0) {
+							btnSoldat.setEnabled(false);
+							btn_actif_soldat = false;
+							imgpion = null;
+							lblnb_reste_soldat.setText("0");
+						}
+
+						
+						if (current_player.getArmee()-3< 0) {
+							btnCavalier.setEnabled(false);
+							btn_actif_cavalier = false;
+							lblnb_reste_cavalier.setText("0");
+						}
+
+					}
 				}
-				nb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
-				nb_reste_cavalier.setText(Integer.toString(current_player.getArmee()));
-				nb_reste_tank.setText(Integer.toString(current_player.getArmee()));
 
 			}
 		});
 		
-		nb_reste_cavalier = new JLabel(Integer.toString(current_player.getArmee()));
-		nb_reste_cavalier.setBounds(252, 827, 56, 16);
-		contentPane.add(nb_reste_cavalier);
+		for (int i = 0; i < this.listeJoueur.size(); i++) {
+			JLabel label = new JLabel(new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionSoldat())));
+			int x = listeJoueur.get(i).getListe_de_pion_soldat().get(0).getZone().getXpositionCentreSoldat();
+			int y = listeJoueur.get(i).getListe_de_pion_soldat().get(0).getZone().getYpositionCentreSoldat();
+			label.setBounds(x, y, 25, 25);
+			label.setVisible(true);
+			contentPane.add(label);
+		}
+					
 		
-		nb_reste_tank = new JLabel(Integer.toString(current_player.getArmee()));
-		nb_reste_tank.setBounds(410, 827, 56, 16);
-		contentPane.add(nb_reste_tank);
 		
-		nb_reste_soldat = new JLabel(Integer.toString(current_player.getArmee()));
-		nb_reste_soldat.setBounds(92, 827, 56, 16);
-		contentPane.add(nb_reste_soldat);
+		lblnb_reste_cavalier = new JLabel(Integer.toString(current_player.getArmee()/3));
+		lblnb_reste_cavalier.setBounds(252, 827, 56, 16);
+		contentPane.add(lblnb_reste_cavalier);
+		
+		lblnb_reste_tank = new JLabel(Integer.toString(current_player.getArmee()/7));
+		lblnb_reste_tank.setBounds(410, 827, 56, 16);
+		contentPane.add(lblnb_reste_tank);
+		
+		lblnb_reste_soldat = new JLabel(Integer.toString(current_player.getArmee()));
+		lblnb_reste_soldat.setBounds(92, 827, 56, 16);
+		contentPane.add(lblnb_reste_soldat);
 		
 		current_player_displyed_info = new JLabel("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 		current_player_displyed_info.setFont(new Font("Tahoma", Font.PLAIN, 21));
@@ -129,6 +173,10 @@ public class Plateau_de_jeu extends JFrame {
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
 		fond.setBounds(12, 0, 1700, 815);
 		contentPane.add(fond);
+		
+		icopion = new ImageIcon(getClass().getResource(current_player.getCheminicopionSoldat()));	
+		imgpion = icopion.getImage();
+		
 		
 		
 		//bouton jouer
@@ -147,8 +195,10 @@ public class Plateau_de_jeu extends JFrame {
 				}
 				System.out.println("Tour de : "+current_player.getName());
 				ClearBtn_end_round(btnCavalier, btnSoldat, btnTank);
-				btn_actif = false;
-//				current_player.ResetRound();
+				btn_actif_cavalier = false;
+				btn_actif_soldat = false;
+				btn_actif_tank = false;
+				ResetRound();
 				current_pion = null;
 				table.setModel(new DefaultTableModel(
 						new Object[][] {
@@ -163,11 +213,12 @@ public class Plateau_de_jeu extends JFrame {
 						new String[] {
 							"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 						}));
-				current_player_displyed_info.setText("Tour de " + current_player.getName());
-				nb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
-				nb_reste_cavalier.setText(Integer.toString(current_player.getArmee()));
-				nb_reste_tank.setText(Integer.toString(current_player.getArmee()));
-
+				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeDeDepart());
+				lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+				lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+				lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeDeDepart());
+				current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_fin_tour.png")));
@@ -180,8 +231,10 @@ public class Plateau_de_jeu extends JFrame {
 		
 		
 		//bouton soldat
-		this.btnSoldat = new JButton("");
+		this.btnSoldat = new JButton("");	
 		btnSoldat.addMouseListener(new MouseAdapter() {
+			private JLabel lblNewLabel_3;
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 	
@@ -194,9 +247,8 @@ public class Plateau_de_jeu extends JFrame {
 				btnSoldat.setBackground(current_player.getCouleur_joueur());
 				
 				ClearButton(btnCavalier,btnTank);
-				btn_actif = true;
+				btn_actif_soldat = true;
 				current_pion = "soldat";
-				
 			}
 		});
 		this.btnSoldat.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/icone_bouton_game/soldatbtn.png")));
@@ -218,7 +270,7 @@ public class Plateau_de_jeu extends JFrame {
 				btnCavalier.setBackground(current_player.getCouleur_joueur());
 
 				ClearButton(btnSoldat, btnTank);
-				btn_actif = true;
+				btn_actif_cavalier = true;
 				current_pion = "cavalier";
 			}
 		});
@@ -241,7 +293,7 @@ public class Plateau_de_jeu extends JFrame {
 				btnTank.setBackground(current_player.getCouleur_joueur());
 				
 				ClearButton(btnSoldat, btnCavalier);
-				btn_actif = true;
+				btn_actif_tank = true;
 				current_pion = "tank";
 			}
 		});
@@ -258,19 +310,24 @@ public class Plateau_de_jeu extends JFrame {
 		contentPane.add(table);
 		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Soldat / Cavalier / Tank", "Zone 1", "Zone 2", "Zone  3", "Zone 4 ", "Zone  5", "Zone  6  ", "Zone  7"},
-				{"Asie", null, null, null, null, null, null, null},
-				{"Afrique", null, null, null, null, null, null, null},
-				{"Amerique du sud", null, null, null, null, null, null, null},
-				{"Amerique du nord", null, null, null, null, null, null, null},
-				{"Europe", null, null, null, null, null, null, null},
-				{"Oceanie", null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
-			}
-		));
+				new Object[][] {
+					{"Soldat / Cavalier / Tank", "Zone 1", "Zone 2", "Zone  3", "Zone 4 ", "Zone  5", "Zone  6  ", "Zone  7"},
+					{"Asie", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Asie").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Asie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Asie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Asie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Asie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Asie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Asie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Asie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Asie").size()},
+					{"Afrique", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Afrique").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Afrique").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Afrique").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Afrique").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Afrique").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Afrique").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Afrique").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Afrique").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Afrique").size()},
+					{"Amerique du sud", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Amerique_du_sud").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Amerique_du_sud").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Amerique_du_sud").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Amerique_du_sud").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Amerique_du_sud").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Amerique_du_sud").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Amerique_du_sud").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Amerique_du_sud").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Amerique_du_sud").size()},
+					{"Amerique du nord", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Amerique_du_nord").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Amerique_du_nord").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Amerique_du_nord").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Amerique_du_nord").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Amerique_du_nord").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Amerique_du_nord").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Amerique_du_nord").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Amerique_du_nord").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Amerique_du_nord").size()},
+					{"Europe", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Europe").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Europe").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Europe").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Europe").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Europe").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Europe").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Europe").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Europe").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Europe").size()},
+					{"Oceanie", current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(1, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(1, "Oceanie").size()  ,  current_player.getListe_de_pion_soldatinZone_and_terriroire(2, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(2, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(2, "Oceanie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(3, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(3, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(3, "Oceanie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(4, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(4, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(4, "Oceanie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(5, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(5, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(5, "Oceanie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(6, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(6, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(6, "Oceanie").size()  ,current_player.getListe_de_pion_soldatinZone_and_terriroire(7, "Oceanie").size()+ " / " + current_player.getListe_de_pion_cavalierinZone_and_terriroire(7, "Oceanie").size() + " / " + current_player.getListe_de_pion_tankinZone_and_terriroire(7, "Oceanie").size()},
+				},
+				new String[] {
+					"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
+				}));
+		
+
+		
+
+		
+		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
@@ -320,7 +377,7 @@ public class Plateau_de_jeu extends JFrame {
 		}
 		
 		Color current_color = robot.getPixelColor(x, y);
-		if (btn_actif == true) {
+		if (btn_actif_cavalier == true  || btn_actif_soldat == true || btn_actif_tank == true) {
 						for (int i = 0; i < listeTerritoire.size(); i++) {
 				//clique sur Europe
 				for (int j = 0; j < 7; j++) {
@@ -331,8 +388,9 @@ public class Plateau_de_jeu extends JFrame {
 									//System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
 									
 									if (current_pion == "soldat") {
-										Graphics graphics = getGraphics();
-										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+//										Graphics graphics = getGraphics();
+//										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+										
 										
 										current_player.Add_Soldat(1, new Pion_soldat(current_player.getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone(), listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone())));
 //										System.out.println(current_player.getListe_de_pion_soldat().size());
@@ -350,6 +408,13 @@ public class Plateau_de_jeu extends JFrame {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
 										
+										current_player.setArmee(current_player.getArmee() - 1);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
+										
+										
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "cavalier") {
@@ -370,6 +435,14 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 3);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										
+										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
+										
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "tank") {
@@ -390,6 +463,14 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 7);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										
+										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
+										
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 								}
@@ -425,6 +506,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 1);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "cavalier") {
@@ -445,6 +531,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 3);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "tank") {
@@ -465,6 +556,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 7);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 								}
 							}
@@ -498,6 +594,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 1);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "cavalier") {
@@ -517,6 +618,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 3);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 									
 									if (current_pion == "tank") {
@@ -536,6 +642,11 @@ public class Plateau_de_jeu extends JFrame {
 												new String[] {
 													"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 												}));
+										current_player.setArmee(current_player.getArmee() - 7);
+										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
+										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
+										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
+										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 									}
 								}
 							}
@@ -550,4 +661,11 @@ public class Plateau_de_jeu extends JFrame {
 	public void Attaque() {
 		
 	}
+	
+	public void ResetRound() {
+		btnSoldat.setEnabled(true);
+		btnCavalier.setEnabled(true);
+		btnTank.setEnabled(true);
+	}
+	
 }

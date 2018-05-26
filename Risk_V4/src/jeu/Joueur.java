@@ -124,22 +124,5 @@ public class Joueur {
 		this.armee = armee;
 	}
 	
-	
-	
-//	public boolean GestionPion() {
-//		for (int i = 0; i < liste_de_pion.length; i++) {
-//			if (this.getPions(i).getNombre_de_pion() == 0) {
-//				System.out.println("plus de soldat");
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-	
-//	public void ResetRound() {
-//		liste_de_pion[0].setNombre_de_pion(4);
-//		liste_de_pion[1].setNombre_de_pion(2);
-//		liste_de_pion[2].setNombre_de_pion(1);
-//	}
 
 }

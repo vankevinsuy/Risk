@@ -128,23 +128,10 @@ public class Zone {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getNom_du_territoire() {
 		return Nom_du_territoire;
 	}
 
-
-	public void setNom_du_territoire(String nom_du_territoire) {
-		Nom_du_territoire = nom_du_territoire;
-	}
 
 
 	public int getNum_zone() {
