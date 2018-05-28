@@ -106,43 +106,51 @@ public class Plateau_de_jeu extends JFrame {
 
 				}
 				else {
-					if (current_player.getArmee() <= 0) {
+					if (current_player.getArmee() == 0) {
 						btn_actif_soldat = false;
 						btn_actif_cavalier = false;
 						btn_actif_tank =false;
-						Attaque();
+						current_player_displyed_info.setText("Attaque de "+ current_player.getName());
+						Attaque(xposition ,yposition);
 					}
 					else {
-
-						PlacerPion(xposition, yposition);
-						if (current_player.getArmee()-7 < 0) {
-							btnTank.setEnabled(false);
-							btn_actif_tank = false;
-							imgpion = null;
-							lblnb_reste_tank.setText("0");
+						if (CanIplay(xposition, yposition) == true) {
+							PlacerPion(xposition, yposition);
+							
+							if (current_player.getArmee()-7 < 0) {
+								btnTank.setEnabled(false);
+								btn_actif_tank = false;
+								imgpion = null;
+								lblnb_reste_tank.setText("0");
+							}
+	
+							
+							if (current_player.getArmee()-1< 0) {
+								btnSoldat.setEnabled(false);
+								btn_actif_soldat = false;
+								imgpion = null;
+								lblnb_reste_soldat.setText("0");
+							}
+	
+							
+							if (current_player.getArmee()-3< 0) {
+								btnCavalier.setEnabled(false);
+								btn_actif_cavalier = false;
+								lblnb_reste_cavalier.setText("0");
+							}
 						}
-
+						else {
+							System.out.println("choisir une autre zone");
+						}
 						
-						if (current_player.getArmee()-1< 0) {
-							btnSoldat.setEnabled(false);
-							btn_actif_soldat = false;
-							imgpion = null;
-							lblnb_reste_soldat.setText("0");
-						}
-
-						
-						if (current_player.getArmee()-3< 0) {
-							btnCavalier.setEnabled(false);
-							btn_actif_cavalier = false;
-							lblnb_reste_cavalier.setText("0");
-						}
-
 					}
 				}
 
 			}
 		});
 		
+		
+		//----
 		for (int i = 0; i < this.listeJoueur.size(); i++) {
 			JLabel label = new JLabel(new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionSoldat())));
 			int x = listeJoueur.get(i).getListe_de_pion_soldat().get(0).getZone().getXpositionCentreSoldat();
@@ -168,7 +176,7 @@ public class Plateau_de_jeu extends JFrame {
 		
 		current_player_displyed_info = new JLabel("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 		current_player_displyed_info.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		current_player_displyed_info.setBounds(554, 723, 377, 67);
+		current_player_displyed_info.setBounds(554, 723, 745, 67);
 		contentPane.add(current_player_displyed_info);
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
 		fond.setBounds(12, 0, 1700, 815);
@@ -233,8 +241,6 @@ public class Plateau_de_jeu extends JFrame {
 		//bouton soldat
 		this.btnSoldat = new JButton("");	
 		btnSoldat.addMouseListener(new MouseAdapter() {
-			private JLabel lblNewLabel_3;
-
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 	
@@ -378,18 +384,19 @@ public class Plateau_de_jeu extends JFrame {
 		
 		Color current_color = robot.getPixelColor(x, y);
 		if (btn_actif_cavalier == true  || btn_actif_soldat == true || btn_actif_tank == true) {
-						for (int i = 0; i < listeTerritoire.size(); i++) {
+			for (int i = 0; i < listeTerritoire.size(); i++) {
 				//clique sur Europe
 				for (int j = 0; j < 7; j++) {
 					for (int k = 0; k < 7; k++) {
 						if (listeTerritoire.get(i).getCouleur_primaire_territoire1()+j == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2()+k == current_color.getGreen()) {
 							for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
 								if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getBlue() == current_color.getBlue()) {
-									//System.out.println(listeTerritoire.get(i).getName() + " zone : " + listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+									// System.out.println(listeTerritoire.get(i).getName() + " zone : " +
+									// listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
 									
 									if (current_pion == "soldat") {
-//										Graphics graphics = getGraphics();
-//										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
+										Graphics graphics = getGraphics();
+										graphics.drawImage(imgpion, listeTerritoire.get(i).getListe_zone_possible().get(l).getXpositionCentreSoldat(),listeTerritoire.get(i).getListe_zone_possible().get(l).getYpositionCentreSoldat(), null);	
 										
 										
 										current_player.Add_Soldat(1, new Pion_soldat(current_player.getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone(), listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone())));
@@ -511,6 +518,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 									
 									if (current_pion == "cavalier") {
@@ -536,6 +546,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 									
 									if (current_pion == "tank") {
@@ -561,6 +574,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 								}
 							}
@@ -599,6 +615,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 									
 									if (current_pion == "cavalier") {
@@ -623,6 +642,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 									
 									if (current_pion == "tank") {
@@ -647,6 +669,9 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+										}
 									}
 								}
 							}
@@ -658,7 +683,7 @@ public class Plateau_de_jeu extends JFrame {
 
 	}
 
-	public void Attaque() {
+	public void Attaque(int x , int y) {
 		
 	}
 	
@@ -666,6 +691,69 @@ public class Plateau_de_jeu extends JFrame {
 		btnSoldat.setEnabled(true);
 		btnCavalier.setEnabled(true);
 		btnTank.setEnabled(true);
+	}
+	
+	public boolean CanIplay(int x , int y) {
+		Robot robot = null;
+		String clickTerritoire = null;
+		int clickZone = 0;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
+		
+		Color current_color = robot.getPixelColor(x, y);
+		//en europe
+		for (int i = 0; i < listeTerritoire.size(); i++) {
+			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getGreen()) {
+				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getBlue() == current_color.getBlue()) {
+						clickTerritoire = listeTerritoire.get(i).getName();
+						clickZone = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
+//						System.out.println(clickTerritoire+ " zone : " + clickZone);
+					}
+					
+				}
+			}
+		}
+		//Asie et Amerique du sud
+		for (int i = 0; i < listeTerritoire.size(); i++) {
+			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getBlue()) {
+				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getGreen() == current_color.getGreen()) {
+						clickTerritoire = listeTerritoire.get(i).getName();
+						clickZone = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
+//						System.out.println(clickTerritoire+ " zone : " + clickZone);
+					}
+					
+				}
+			}
+		}
+		
+		for (int i = 0; i < listeTerritoire.size(); i++) {
+			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getGreen() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getBlue()) {
+				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
+					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getRed() == current_color.getRed()) {
+						clickTerritoire = listeTerritoire.get(i).getName();
+						clickZone = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
+//						System.out.println(clickTerritoire+ " zone : " + clickZone);
+					}
+					
+				}
+			}
+		}
+		
+		
+//		si il y a quelqu'un dans la zone
+		for (int i = 0; i < listeJoueur.size(); i++) {
+			if (listeJoueur.get(i).getListe_de_pion_soldatinZone_and_terriroire(clickZone, clickTerritoire).size() >0 && current_player!= listeJoueur.get(i)) {
+//				System.out.println("il y a deja un joueur");
+				return false;
+			}
+		}
+		return true;
+		
 	}
 	
 }

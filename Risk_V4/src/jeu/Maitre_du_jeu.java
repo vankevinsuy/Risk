@@ -105,6 +105,7 @@ public class Maitre_du_jeu {
 			}
 		}
 		
+		// -----
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
 				listeJoueur.get(i).setArmee(40);
@@ -140,7 +141,7 @@ public class Maitre_du_jeu {
 			}
 		}
 
-		
+		// ----
 		for (int i = 0; i < nombre_de_joueur; i++) {
 			int randomTerritoire = (int) (Math.random()*10);
 			int randomZone = (int) (Math.random()*10);
