@@ -2,6 +2,7 @@ package jeu;
 
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -85,13 +86,13 @@ public class Plateau_de_jeu extends JFrame {
 		
 		
 		
-		JLabel fond = new JLabel("");
+		JLabel fond = new JLabel("");		
 		fond.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				DrawAllPion();
 				xposition = (int) MouseInfo.getPointerInfo().getLocation().getX();
 				yposition = (int) MouseInfo.getPointerInfo().getLocation().getY();
-				
 				Robot robot = null;
 				try {
 					robot = new Robot();
@@ -103,7 +104,6 @@ public class Plateau_de_jeu extends JFrame {
 				//si on clique dans le vide on saute une ligne dans la console
 				if (current_color.getRed()==255 && current_color.getGreen()==255 && current_color.getBlue()==255) {
 					System.out.println("");
-
 				}
 				else {
 					if (current_player.getArmee() == 0) {
@@ -111,10 +111,20 @@ public class Plateau_de_jeu extends JFrame {
 						btn_actif_cavalier = false;
 						btn_actif_tank =false;
 						current_player_displyed_info.setText("Attaque de "+ current_player.getName());
-						Attaque(xposition ,yposition);
+						if (phase_de_jeu == true) {
+							fond.setIcon(null);
+							fond.setIcon(new ImageIcon(getClass().getResource("/image/map_piece/Map.png")));
+							Attaque(xposition ,yposition);
+							phase_de_jeu = false;
+						}
+						else {
+							Attaque(xposition ,yposition);
+						}
+
 					}
 					else {
 						if (CanIplay(xposition, yposition) == true) {
+
 							PlacerPion(xposition, yposition);
 							
 							if (current_player.getArmee()-7 < 0) {
@@ -122,6 +132,8 @@ public class Plateau_de_jeu extends JFrame {
 								btn_actif_tank = false;
 								imgpion = null;
 								lblnb_reste_tank.setText("0");
+								
+								
 							}
 	
 							
@@ -130,6 +142,7 @@ public class Plateau_de_jeu extends JFrame {
 								btn_actif_soldat = false;
 								imgpion = null;
 								lblnb_reste_soldat.setText("0");
+								
 							}
 	
 							
@@ -137,6 +150,7 @@ public class Plateau_de_jeu extends JFrame {
 								btnCavalier.setEnabled(false);
 								btn_actif_cavalier = false;
 								lblnb_reste_cavalier.setText("0");
+								
 							}
 						}
 						else {
@@ -149,19 +163,8 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		
-		
-		//----
-		for (int i = 0; i < this.listeJoueur.size(); i++) {
-			JLabel label = new JLabel(new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionSoldat())));
-			int x = listeJoueur.get(i).getListe_de_pion_soldat().get(0).getZone().getXpositionCentreSoldat();
-			int y = listeJoueur.get(i).getListe_de_pion_soldat().get(0).getZone().getYpositionCentreSoldat();
-			label.setBounds(x, y, 25, 25);
-			label.setVisible(true);
-			contentPane.add(label);
-		}
-					
-		
-		
+
+							
 		lblnb_reste_cavalier = new JLabel(Integer.toString(current_player.getArmee()/3));
 		lblnb_reste_cavalier.setBounds(252, 827, 56, 16);
 		contentPane.add(lblnb_reste_cavalier);
@@ -181,10 +184,9 @@ public class Plateau_de_jeu extends JFrame {
 		fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
 		fond.setBounds(12, 0, 1700, 815);
 		contentPane.add(fond);
-		
+
 		icopion = new ImageIcon(getClass().getResource(current_player.getCheminicopionSoldat()));	
 		imgpion = icopion.getImage();
-		
 		
 		
 		//bouton jouer
@@ -347,7 +349,7 @@ public class Plateau_de_jeu extends JFrame {
 		
 		setResizable(false);
 		setVisible(true);
-	}
+	}		
 
 	public void ClearButton(JButton btn ,JButton btn2) {
 		btn.setContentAreaFilled(false);
@@ -422,6 +424,10 @@ public class Plateau_de_jeu extends JFrame {
 										
 										
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
+										}
 									}
 									
 									if (current_pion == "cavalier") {
@@ -450,6 +456,10 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
 										
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
+										}
 									}
 									
 									if (current_pion == "tank") {
@@ -478,6 +488,10 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
 										
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+										if (current_player.getArmee() == 0) {
+											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
+										}
 									}
 									
 								}
@@ -520,6 +534,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 									
@@ -548,6 +563,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 									
@@ -576,6 +592,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 								}
@@ -617,6 +634,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 									
@@ -644,6 +662,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 									
@@ -671,6 +690,7 @@ public class Plateau_de_jeu extends JFrame {
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 										if (current_player.getArmee() == 0) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
+											phase_de_jeu = true;
 										}
 									}
 								}
@@ -684,9 +704,8 @@ public class Plateau_de_jeu extends JFrame {
 	}
 
 	public void Attaque(int x , int y) {
-		
+		DrawAllPion();
 	}
-	
 	public void ResetRound() {
 		btnSoldat.setEnabled(true);
 		btnCavalier.setEnabled(true);
@@ -756,4 +775,32 @@ public class Plateau_de_jeu extends JFrame {
 		
 	}
 	
+	public void DrawAllPion() {
+		for (int i = 0; i <listeJoueur.size(); i++) {
+			for (int j = 0; j < listeJoueur.get(i).getListe_de_pion_soldat().size(); j++) {
+				Graphics graphics = getGraphics();
+				ImageIcon icon = new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionSoldat()));
+				Image image = icon.getImage();
+				graphics.drawImage(image, listeJoueur.get(i).getListe_de_pion_soldat().get(j).getZone().getXpositionCentreSoldat(),listeJoueur.get(i).getListe_de_pion_soldat().get(j).getZone().getYpositionCentreSoldat(), null);	
+			}
+		}
+		
+		for (int i = 0; i <listeJoueur.size(); i++) {
+			for (int j = 0; j < listeJoueur.get(i).getListe_de_pion_cavalier().size(); j++) {
+				Graphics graphics = getGraphics();
+				ImageIcon icon = new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionCavalier()));
+				Image image = icon.getImage();
+				graphics.drawImage(image, listeJoueur.get(i).getListe_de_pion_cavalier().get(j).getZone().getXpositionCentreSoldat(),listeJoueur.get(i).getListe_de_pion_cavalier().get(j).getZone().getYpositionCentrecavalier(), null);	
+			}
+		}
+		
+		for (int i = 0; i <listeJoueur.size(); i++) {
+			for (int j = 0; j < listeJoueur.get(i).getListe_de_pion_tank().size(); j++) {
+				Graphics graphics = getGraphics();
+				ImageIcon icon = new ImageIcon(getClass().getResource(listeJoueur.get(i).getCheminicopionTank()));
+				Image image = icon.getImage();
+				graphics.drawImage(image, listeJoueur.get(i).getListe_de_pion_tank().get(j).getZone().getXpositionCentreTank(),listeJoueur.get(i).getListe_de_pion_tank().get(j).getZone().getYpositionCentreTank(), null);	
+			}
+		}
+	}
 }

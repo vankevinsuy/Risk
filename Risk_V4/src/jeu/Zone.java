@@ -158,6 +158,30 @@ public class Zone {
 		return ypositionCentreSoldat;
 	}
 
+	public void setXpositionCentreSoldat(int xpositionCentreSoldat) {
+		this.xpositionCentreSoldat = xpositionCentreSoldat;
+	}
+
+	public void setYpositionCentreSoldat(int ypositionCentreSoldat) {
+		this.ypositionCentreSoldat = ypositionCentreSoldat;
+	}
+
+	public void setXpositionCentreCavalier(int xpositionCentreCavalier) {
+		this.xpositionCentreCavalier = xpositionCentreCavalier;
+	}
+
+	public void setYpositionCentrecavalier(int ypositionCentrecavalier) {
+		this.ypositionCentrecavalier = ypositionCentrecavalier;
+	}
+
+	public void setXpositionCentreTank(int xpositionCentreTank) {
+		this.xpositionCentreTank = xpositionCentreTank;
+	}
+
+	public void setYpositionCentreTank(int ypositionCentreTank) {
+		this.ypositionCentreTank = ypositionCentreTank;
+	}
+
 	public int getXpositionCentreCavalier() {
 		return xpositionCentreCavalier;
 	}
