@@ -42,6 +42,7 @@ public class Zone {
 		System.out.println(this.Nom_du_territoire +" " + " zone " + this.num_zone + "= " +this.xpositionCentreSoldat + " " + this.ypositionCentreSoldat);
 	}
 	
+	// Calculer le centre de chaque zone pour placer un pions de chaque armée ( soldat, tank, cavalier )
 	public void CalculateXcentre_Soldat(){
 		BufferedImage image = null;
 		File source = new File("src\\image\\map_piece\\Map.png");
