@@ -74,7 +74,6 @@ public class Plateau_de_jeu extends JFrame {
 		this.current_player = listeJoueur.get(this.index);
 		this.listeTerritoire = listeTerritoire;
 		this.phase_de_jeu = false;
-
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1730, 1000);
@@ -111,15 +110,15 @@ public class Plateau_de_jeu extends JFrame {
 						btn_actif_cavalier = false;
 						btn_actif_tank =false;
 						current_player_displyed_info.setText("Attaque de "+ current_player.getName());
-						if (phase_de_jeu == true) {
-							fond.setIcon(null);
-							fond.setIcon(new ImageIcon(getClass().getResource("/image/map_piece/Map.png")));
-							DrawAllPion();
-							phase_de_jeu = false;
-						}
-						else {
-							DrawAllPion();
-						}
+//						if (phase_de_jeu == true) {
+//							fond.setIcon(null);
+//							fond.setIcon(new ImageIcon(getClass().getResource("/image/map_piece/Map.png")));
+//							DrawAllPion();
+//							phase_de_jeu = false;
+//						}
+//						else {
+//							DrawAllPion();
+//						}
 
 					}
 					else {
@@ -229,6 +228,7 @@ public class Plateau_de_jeu extends JFrame {
 				lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeDeDepart());
 				current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+				DrawAllPion();
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_fin_tour.png")));

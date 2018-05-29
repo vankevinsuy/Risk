@@ -54,7 +54,7 @@ public class Joueur {
 
 	public void Add_Soldat(int nb_soldat, Pion_soldat soldat) {
 		for (int i = 0; i < nb_soldat; i++) {
-			this.liste_de_pion_soldat.add(soldat);
+			liste_de_pion_soldat.add(soldat);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class Joueur {
 	
 	public void AddCavalier(int nb_cavalier, Pion_Cavalier cavalier) {
 		for (int i = 0; i < nb_cavalier; i++) {
-			this.liste_de_pion_cavalier.add(cavalier);
+			liste_de_pion_cavalier.add(cavalier);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class Joueur {
 	
 	public void AddTank(int nb_Tank, Pion_Tank tank) {
 		for (int i = 0; i < nb_Tank; i++) {
-			this.liste_de_pion_tank.add(tank);
+			liste_de_pion_tank.add(tank);
 		}
 	}
 
@@ -86,8 +86,8 @@ public class Joueur {
 
 	public ArrayList<Pion_soldat> getListe_de_pion_soldatinZone_and_terriroire(int numZone , String territoire) {
 		ArrayList<Pion_soldat> liste = new ArrayList<Pion_soldat>();
-		for (int i = 0; i < this.liste_de_pion_soldat.size(); i++) {
-			if (this.liste_de_pion_soldat.get(i).getZone().getNum_zone() == numZone && this.liste_de_pion_soldat.get(i).getZone().getNom_du_territoire()==territoire) {
+		for (int i = 0; i < liste_de_pion_soldat.size(); i++) {
+			if (liste_de_pion_soldat.get(i).getZone().getNum_zone() == numZone && liste_de_pion_soldat.get(i).getZone().getNom_du_territoire()==territoire) {
 				liste.add(this.getListe_de_pion_soldat().get(i));
 			}
 		}
@@ -97,8 +97,8 @@ public class Joueur {
 	public ArrayList<Pion_Cavalier> getListe_de_pion_cavalierinZone_and_terriroire(int numZone, String territoire) {
 		ArrayList<Pion_Cavalier> liste = new ArrayList<Pion_Cavalier>();
 		for (int i = 0; i < this.liste_de_pion_cavalier.size(); i++) {
-			if (this.liste_de_pion_cavalier.get(i).getZone().getNum_zone() == numZone && this.liste_de_pion_cavalier.get(i).getZone().getNom_du_territoire()==territoire) {
-				liste.add(this.getListe_de_pion_cavalier().get(i));
+			if (liste_de_pion_cavalier.get(i).getZone().getNum_zone() == numZone && liste_de_pion_cavalier.get(i).getZone().getNom_du_territoire()==territoire) {
+				liste.add(getListe_de_pion_cavalier().get(i));
 			}
 		}
 		return liste;
@@ -107,8 +107,8 @@ public class Joueur {
 	public ArrayList<Pion_Tank> getListe_de_pion_tankinZone_and_terriroire(int numZone, String territoire) {
 		ArrayList<Pion_Tank> liste = new ArrayList<Pion_Tank>();
 		for (int i = 0; i < this.liste_de_pion_tank.size(); i++) {
-			if (this.liste_de_pion_tank.get(i).getZone().getNum_zone() == numZone && this.liste_de_pion_tank.get(i).getZone().getNom_du_territoire()==territoire) {
-				liste.add(this.getListe_de_pion_tank().get(i));
+			if (liste_de_pion_tank.get(i).getZone().getNum_zone() == numZone && liste_de_pion_tank.get(i).getZone().getNom_du_territoire()==territoire) {
+				liste.add(getListe_de_pion_tank().get(i));
 			}
 		}
 		return liste;
