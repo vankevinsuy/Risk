@@ -240,7 +240,7 @@ public class Plateau_de_jeu extends JFrame {
 		
 		
 		
-		//bouton soldat
+		//Création du Bouton Soldat
 		this.btnSoldat = new JButton("");	
 		btnSoldat.addMouseListener(new MouseAdapter() {
 			@Override
