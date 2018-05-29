@@ -798,7 +798,7 @@ public class Plateau_de_jeu extends JFrame {
 		return true;
 		
 	}
-	
+	// Boucles For qui vont dessiner les pions ( les premiers aléatoires )
 	public void DrawAllPion() {
 		
 		for (int i = 0; i <listeJoueur.size(); i++) {
