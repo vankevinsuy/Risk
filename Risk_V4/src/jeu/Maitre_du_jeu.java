@@ -105,7 +105,9 @@ public class Maitre_du_jeu {
 			}
 		}
 		
-		// -----
+		// Attribution de l'armée en fonction du nombre de joueurs.
+
+		
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
 				listeJoueur.get(i).setArmee(40);
