@@ -11,6 +11,7 @@ public class Territoire {
 	private String Name;
 	private ArrayList<Zone> liste_zone_possible;
 	
+	// definition des couleurs de territoires en imposant deux couleurs primaires et en jouant sur la troisième sur la base du RGB.
 	
 	public Territoire(int couleur_primaire_territoire1,int couleur_primaire_territoire2 , String name) {
 		super();
