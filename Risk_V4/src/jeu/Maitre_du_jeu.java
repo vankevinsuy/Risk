@@ -107,7 +107,7 @@ public class Maitre_du_jeu {
 		
 		// Attribution de l'armée en fonction du nombre de joueurs.
 
-		
+
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
 				listeJoueur.get(i).setArmee(40);
@@ -143,7 +143,7 @@ public class Maitre_du_jeu {
 			}
 		}
 
-		// ----
+		// Distribuer 2 soldats par joueurs et par zones et faire en sorte que 2 soldats ne soient pas dans le même zone.
 		for (int i = 0; i < nombre_de_joueur; i++) {
 			int randomTerritoire = (int) (Math.random()*10);
 			int randomZone = (int) (Math.random()*10);
