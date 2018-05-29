@@ -287,7 +287,7 @@ public class Plateau_de_jeu extends JFrame {
 		contentPane.add(this.btnCavalier);
 		
 		
-		//bouton tank
+		//Création de bouton Tank
 		this.btnTank = new JButton("");
 		this.btnTank.addMouseListener(new MouseAdapter() {
 			@Override
