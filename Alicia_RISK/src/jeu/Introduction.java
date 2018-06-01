@@ -24,6 +24,7 @@ public class Introduction extends JFrame {
 	private JButton button_2joueurs;
 	private Maitre_du_jeu maitre_du_jeu;
 
+// Permet de choisir le nombre de joueurs lors du lancement du jeu
 
 
 	public Introduction(Maitre_du_jeu maitre_du_jeu) {
