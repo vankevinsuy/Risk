@@ -15,6 +15,8 @@ public class Joueur {
 	private ArrayList<Pion_Tank> liste_de_pion_tank;
 	private String name;
 	private int armee;
+	
+// Creation de liste afin de savoir combien d'armée on possède selon les pions.
 
 	public Joueur(String icopionSoldat,String icopionCavalier,String icopionTank, String name , Color couleur_joueur) {
 		this.cheminicopionSoldat = icopionSoldat;
@@ -85,6 +87,7 @@ public class Joueur {
 	}
 
 	//Récupère la liste des pions pour chaque joueur
+
 
 	public ArrayList<Pion_soldat> getListe_de_pion_soldatinZone_and_terriroire(int numZone , String territoire) {
 		ArrayList<Pion_soldat> liste = new ArrayList<Pion_soldat>();
