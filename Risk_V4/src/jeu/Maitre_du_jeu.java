@@ -108,71 +108,104 @@ public class Maitre_du_jeu {
 		// nombre de pion en fonction du nombre de joueur
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
-				listeJoueur.get(i).setArmee(40);
-				armeeDeDepart = 40;
+				listeJoueur.get(i).setArmee(19);
+				armeeDeDepart = 19;
 			}
 		}
 		
 		if (nombre_de_joueur == 3) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
-				listeJoueur.get(i).setArmee(35);
-				this.setArmeeDeDepart(35);
+				listeJoueur.get(i).setArmee(21);
+				this.setArmeeDeDepart(21);
 			}
 		}
 		
 		if (nombre_de_joueur == 4) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
-				listeJoueur.get(i).setArmee(30);
-				this.setArmeeDeDepart(30);
+				listeJoueur.get(i).setArmee(20);
+				this.setArmeeDeDepart(20);
 			}
 		}
 		
 		if (nombre_de_joueur == 5) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
-				listeJoueur.get(i).setArmee(25);
-				this.setArmeeDeDepart(25);
+				listeJoueur.get(i).setArmee(17);
+				this.setArmeeDeDepart(17);
 			}
 		}
 		
 		if (nombre_de_joueur == 6) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
-				listeJoueur.get(i).setArmee(20);
-				this.setArmeeDeDepart(20);
+				listeJoueur.get(i).setArmee(13);
+				this.setArmeeDeDepart(13);
 			}
 		}
 
 		// repartition des pions sur des zones aléatoires
-		for (int i = 0; i < nombre_de_joueur; i++) {
-			int randomTerritoire = (int) (Math.random()*10);
-			int randomZone = (int) (Math.random()*10);
-			if (randomTerritoire >5) {
-				while (randomTerritoire >5) {
-					randomTerritoire = (int) (Math.random()*10);
+//		for (int i = 0; i < nombre_de_joueur; i++) {
+//			int randomTerritoire = (int) (Math.random()*10);
+//			int randomZone = (int) (Math.random()*10);
+//			if (randomTerritoire >5) {
+//				while (randomTerritoire >5) {
+//					randomTerritoire = (int) (Math.random()*10);
+//				}
+//			}
+//			if (randomZone>6) {
+//				while (randomZone >6) {
+//					randomZone = (int) Math.random()*10;
+//				}
+//			}
+//			if (randomTerritoire == 0)/*si on randomTerritoire = Asie*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));
+//			}
+//			
+//			if (randomTerritoire == 1)/*si on randomTerritoire = Afrique*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
+//			
+//			if (randomTerritoire == 2)/*si on randomTerritoire = Amerique_du_sud*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
+//			
+//			if (randomTerritoire == 3)/*si on randomTerritoire = Amerique_du_nord*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
+//			
+//			if (randomTerritoire == 4)/*si on randomTerritoire = Europe*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
+//			
+//			if (randomTerritoire == 5)/*si on randomTerritoire = Oceanie*/ {
+//				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
+//		}
+		ArrayList<Integer>valeur_ban = new ArrayList<>();
+		
+		for (int i = 0; i < listeTerritoire.size(); i++) {
+			for (int j = 0; j < listeTerritoire.get(i).getListe_zone_possible().size(); j++) {
+				int random = (int) (Math.random()*(6));
+				
+				if (listeTerritoire.get(random).getName() == "Asie") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(), new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), 180 - (10*j) , listeTerritoire.get(i).getCouleur_primaire_territoire2()))));
+//					System.out.println(listeJoueur.get(random).getListe_de_pion_soldat().size());
+					System.out.println(random);
+				}
+				
+				if (listeTerritoire.get(random).getName() == "Afrique") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(), new Color( 170 - (10*j),listeTerritoire.get(i).getCouleur_primaire_territoire1(),listeTerritoire.get(i).getCouleur_primaire_territoire2()))));				
+				}
+				
+				if (listeTerritoire.get(random).getName() == "Amerique_du_sud") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(), new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), 180 - (10*j) ,listeTerritoire.get(i).getCouleur_primaire_territoire2()))));				
+				}
+				
+				if (listeTerritoire.get(random).getName() == "Amerique_du_nord") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(), new Color(150 - (10*j),listeTerritoire.get(i).getCouleur_primaire_territoire1(), listeTerritoire.get(i).getCouleur_primaire_territoire2()))));
+				}
+				
+				if (listeTerritoire.get(random).getName() == "Europe") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(), new Color(listeTerritoire.get(i).getCouleur_primaire_territoire1(), listeTerritoire.get(i).getCouleur_primaire_territoire2(), 250 - (10*j)))));			
+				}
+				
+				if (listeTerritoire.get(random).getName() == "Oceanie") {
+					listeJoueur.get(random).Add_Soldat(1, new Pion_soldat(listeJoueur.get(random).getCheminicopionSoldat(), new Zone(listeTerritoire.get(i).getName(), listeTerritoire.get(i).getListe_zone_possible().get(j).getNum_zone(),  new Color(240 - (10*j),listeTerritoire.get(i).getCouleur_primaire_territoire1(), listeTerritoire.get(i).getCouleur_primaire_territoire2()))));				
 				}
 			}
-			if (randomZone>6) {
-				while (randomZone >6) {
-					randomZone = (int) Math.random()*10;
-				}
-			}
-			if (randomTerritoire == 0)/*si on randomTerritoire = Asie*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));
-			}
-			
-			if (randomTerritoire == 1)/*si on randomTerritoire = Afrique*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
-			
-			if (randomTerritoire == 2)/*si on randomTerritoire = Amerique_du_sud*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
-			
-			if (randomTerritoire == 3)/*si on randomTerritoire = Amerique_du_nord*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
-			
-			if (randomTerritoire == 4)/*si on randomTerritoire = Europe*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
-			
-			if (randomTerritoire == 5)/*si on randomTerritoire = Oceanie*/ {
-				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
 		}
 				
 

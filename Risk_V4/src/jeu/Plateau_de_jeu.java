@@ -85,6 +85,7 @@ public class Plateau_de_jeu extends JFrame {
 	 * Create the frame.
 	 */
 	public Plateau_de_jeu(Maitre_du_jeu maitre_du_jeu, ArrayList<Joueur> listeJoueur , ArrayList<Territoire> listeTerritoire ) {
+		setResizable(false);
 		this.maitre_du_jeu = maitre_du_jeu;
 		this.listeJoueur = listeJoueur;
 		this.current_player = listeJoueur.get(this.index);
@@ -422,7 +423,7 @@ public class Plateau_de_jeu extends JFrame {
 				DrawAllPion();
 			}
 		});
-		btnDessinerLesPions.setBounds(1566, 818, 138, 25);
+		btnDessinerLesPions.setBounds(1566, 818, 146, 25);
 		contentPane.add(btnDessinerLesPions);
 		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
@@ -433,10 +434,6 @@ public class Plateau_de_jeu extends JFrame {
 		table.getColumnModel().getColumn(5).setResizable(false);
 		table.getColumnModel().getColumn(6).setResizable(false);
 		table.getColumnModel().getColumn(7).setResizable(false);
-		
-		
-		
-		setResizable(false);
 		setVisible(true);
 	}		
 
@@ -890,14 +887,13 @@ public class Plateau_de_jeu extends JFrame {
 		}
 
 		else {
-			System.out.println("non mec");
+			System.out.println("non tu ne peux pas jouer ici");
 			slider.setEnabled(false);
 			slider_1.setEnabled(false);
 			slider_2.setEnabled(false);
 
 		}
 		
-//		System.out.println(territoire + " " + Zonenum);
 	}
 	
 	
