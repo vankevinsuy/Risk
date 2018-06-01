@@ -84,6 +84,8 @@ public class Joueur {
 		return name;
 	}
 
+	//Récupère la liste des pions pour chaque joueur
+
 	public ArrayList<Pion_soldat> getListe_de_pion_soldatinZone_and_terriroire(int numZone , String territoire) {
 		ArrayList<Pion_soldat> liste = new ArrayList<Pion_soldat>();
 		for (int i = 0; i < liste_de_pion_soldat.size(); i++) {
