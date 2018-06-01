@@ -25,9 +25,7 @@ public class Introduction extends JFrame {
 	private Maitre_du_jeu maitre_du_jeu;
 
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Introduction(Maitre_du_jeu maitre_du_jeu) {
 		
 		this.maitre_du_jeu = maitre_du_jeu;
@@ -39,6 +37,7 @@ public class Introduction extends JFrame {
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
 		
+		// Création des Boutons et leurs apparences
 		JButton button_6joueurs = new JButton(new ImageIcon(Introduction.class.getResource("/image/bouton/bouton_6joueurs.png")));
 		button_6joueurs.addMouseListener(new MouseAdapter() {
 			@Override
