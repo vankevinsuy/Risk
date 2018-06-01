@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.lang.invoke.LambdaConversionException;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +27,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Panel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.JTextField;
 
 public class Plateau_de_jeu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -63,6 +68,16 @@ public class Plateau_de_jeu extends JFrame {
 	private JLabel lblnb_reste_cavalier;
 	private JLabel lblnb_reste_tank;
 	private JLabel lblnb_reste_soldat;
+	private JLabel lblmove_ou_attack;
+
+	private JSlider slider;
+	private JSlider slider_1;
+	private JSlider slider_2;
+
+	protected AbstractButton NbSoldatAdeplacer;
+	private JLabel NbSoldatdeplacerlbl;
+	private JLabel lblNombreDeCavalier;
+	private JLabel NbCavalierAdeplacer;
 
 	
 
@@ -77,7 +92,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.phase_de_jeu = false;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1730, 1000);
+		setBounds(0, 0, 1900, 1000);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -157,20 +172,60 @@ public class Plateau_de_jeu extends JFrame {
 		});
 		
 		//bouton de refresh
-		JButton btnNewButton = new JButton("Force Refresh");
+		JButton btnNewButton = new JButton("Effacer les pions");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				DrawAllPion();
+				fond.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/map_piece/Map.png")));
 				System.out.println("refresh");
 			}
 		});
 		
+		JLabel lblNombreDeTank = new JLabel("Nombre de tank \u00E0 d\u00E9placer : ");
+		lblNombreDeTank.setBounds(1508, 181, 197, 26);
+		contentPane.add(lblNombreDeTank);
+		
+		NbCavalierAdeplacer = new JLabel("");
+		NbCavalierAdeplacer.setBounds(1717, 122, 26, 26);
+		contentPane.add(NbCavalierAdeplacer);
+		
+		JLabel NbTankAdeplacer = new JLabel("");
+		NbTankAdeplacer.setBounds(1717, 181, 26, 26);
+		contentPane.add(NbTankAdeplacer);
+		
+		lblNombreDeCavalier = new JLabel("Nombre de cavalier \u00E0 d\u00E9placer : ");
+		lblNombreDeCavalier.setBounds(1508, 122, 197, 26);
+		contentPane.add(lblNombreDeCavalier);
+		
+		lblmove_ou_attack = new JLabel("");
+		lblmove_ou_attack.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblmove_ou_attack.setBounds(889, 723, 442, 67);
+		contentPane.add(lblmove_ou_attack);
+		
+		NbSoldatdeplacerlbl = new JLabel("Nombre de soldats \u00E0 d\u00E9placer : ");
+		NbSoldatdeplacerlbl.setBounds(1508, 69, 197, 26);
+		contentPane.add(NbSoldatdeplacerlbl);
+		
+		JLabel NbSoldatAdeplacer = new JLabel("");
+		NbSoldatAdeplacer.setBounds(1717, 69, 26, 26);
+		contentPane.add(NbSoldatAdeplacer);
+		
+		slider = new JSlider();
+		slider.setValue(0);
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				NbSoldatAdeplacer.setText(Integer.toString(slider.getValue()));
+			}
+		});		
+		slider.setBounds(1755, 69, 127, 26);
+		slider.setEnabled(false);
+		contentPane.add(slider);
+		
 		current_player_displyed_info = new JLabel("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
 		current_player_displyed_info.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		current_player_displyed_info.setBounds(554, 723, 745, 67);
+		current_player_displyed_info.setBounds(554, 723, 701, 67);
 		contentPane.add(current_player_displyed_info);
-		btnNewButton.setBounds(1466, 846, 138, 25);
+		btnNewButton.setBounds(1400, 818, 138, 25);
 		contentPane.add(btnNewButton);
 
 		contentPane.add(fond);
@@ -240,6 +295,9 @@ public class Plateau_de_jeu extends JFrame {
 		btnJouer.setOpaque(false);
 		btnJouer.setContentAreaFilled(false);
 		btnJouer.setBorderPainted(false);
+		lblmove_ou_attack.setText("");
+		
+
 		contentPane.add(btnJouer);
 		
 		
@@ -334,6 +392,38 @@ public class Plateau_de_jeu extends JFrame {
 				new String[] {
 					"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 				}));
+		
+		slider_1 = new JSlider();
+		slider_1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				NbCavalierAdeplacer.setText(Integer.toString(slider_1.getValue()));
+			}
+		});
+		slider_1.setValue(0);
+		slider_1.setEnabled(false);
+		slider_1.setBounds(1755, 122, 127, 26);
+		contentPane.add(slider_1);
+		
+		slider_2 = new JSlider();
+		slider_2.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				NbTankAdeplacer.setText(Integer.toString(slider_2.getValue()));
+			}
+		});
+		slider_2.setValue(0);
+		slider_2.setEnabled(false);
+		slider_2.setBounds(1755, 181, 127, 26);
+		contentPane.add(slider_2);
+		
+		JButton btnDessinerLesPions = new JButton("Dessiner les pions");
+		btnDessinerLesPions.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DrawAllPion();
+			}
+		});
+		btnDessinerLesPions.setBounds(1566, 818, 138, 25);
+		contentPane.add(btnDessinerLesPions);
 		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
 		table.getColumnModel().getColumn(1).setResizable(false);
@@ -726,6 +816,8 @@ public class Plateau_de_jeu extends JFrame {
 	}
 
 	public void Attaque(int x , int y) {
+		String territoire = null;
+		int Zonenum = 0;
 		Robot robot = null;
 		try {
 			robot = new Robot();
@@ -740,7 +832,10 @@ public class Plateau_de_jeu extends JFrame {
 			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getGreen()) {
 				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
 					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getBlue() == current_color.getBlue()) {
-						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+//						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+						territoire = listeTerritoire.get(i).getName();
+						Zonenum = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
+						
 					}
 					
 				}
@@ -751,7 +846,9 @@ public class Plateau_de_jeu extends JFrame {
 			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getRed() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getBlue()) {
 				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
 					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getGreen() == current_color.getGreen()) {
-						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+//						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+						territoire = listeTerritoire.get(i).getName();
+						Zonenum = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
 					}
 					
 				}
@@ -762,12 +859,45 @@ public class Plateau_de_jeu extends JFrame {
 			if (listeTerritoire.get(i).getCouleur_primaire_territoire1() == current_color.getGreen() && listeTerritoire.get(i).getCouleur_primaire_territoire2() == current_color.getBlue()) {
 				for (int l= 0; l < listeTerritoire.get(i).getListe_zone_possible().size() ; l++) {
 					if (listeTerritoire.get(i).getListe_zone_possible().get(l).getCouleur_zone().getRed() == current_color.getRed()) {
-						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+//						System.out.println(listeTerritoire.get(i).getName()+ " zone : " +  listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone());
+						territoire = listeTerritoire.get(i).getName();
+						Zonenum = listeTerritoire.get(i).getListe_zone_possible().get(l).getNum_zone();
 					}
 					
 				}
 			}
 		}
+		
+		if (CanIplay(x, y) == true) {
+			if (current_player.getListe_de_pion_soldatinZone_and_terriroire(Zonenum, territoire).size()>0 || current_player.getListe_de_pion_cavalierinZone_and_terriroire(Zonenum, territoire).size()>0 || current_player.getListe_de_pion_tankinZone_and_terriroire(Zonenum, territoire).size()>0) {
+				System.out.println("tu peux bouger tes pions");
+				slider.setEnabled(true);
+				slider_1.setEnabled(true);
+				slider_2.setEnabled(true);
+				
+				slider.setMaximum(current_player.getListe_de_pion_soldatinZone_and_terriroire(Zonenum, territoire).size());
+				slider_1.setMaximum(current_player.getListe_de_pion_cavalierinZone_and_terriroire(Zonenum, territoire).size());
+				slider_2.setMaximum(current_player.getListe_de_pion_tankinZone_and_terriroire(Zonenum, territoire).size());
+				
+				lblmove_ou_attack.setText(territoire+ " zone "+Zonenum);
+			}
+			else {
+				System.out.println("tu n'as as de pion içi");
+				slider.setEnabled(false);
+				slider_1.setEnabled(false);
+				slider_2.setEnabled(false);
+			}
+		}
+
+		else {
+			System.out.println("non mec");
+			slider.setEnabled(false);
+			slider_1.setEnabled(false);
+			slider_2.setEnabled(false);
+
+		}
+		
+//		System.out.println(territoire + " " + Zonenum);
 	}
 	
 	
@@ -776,6 +906,10 @@ public class Plateau_de_jeu extends JFrame {
 		btnSoldat.setEnabled(true);
 		btnCavalier.setEnabled(true);
 		btnTank.setEnabled(true);
+		
+		slider.setEnabled(false);
+		slider_1.setEnabled(false);
+		slider_2.setEnabled(false);
 	}
 	
 	

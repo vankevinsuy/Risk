@@ -105,7 +105,7 @@ public class Maitre_du_jeu {
 			}
 		}
 		
-		// -----
+		// nombre de pion en fonction du nombre de joueur
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
 				listeJoueur.get(i).setArmee(40);
@@ -141,7 +141,7 @@ public class Maitre_du_jeu {
 			}
 		}
 
-		// ----
+		// repartition des pions sur des zones aléatoires
 		for (int i = 0; i < nombre_de_joueur; i++) {
 			int randomTerritoire = (int) (Math.random()*10);
 			int randomZone = (int) (Math.random()*10);
@@ -174,24 +174,7 @@ public class Maitre_du_jeu {
 			if (randomTerritoire == 5)/*si on randomTerritoire = Oceanie*/ {
 				listeJoueur.get(i).Add_Soldat(2,  new Pion_soldat(listeJoueur.get(i).getCheminicopionSoldat(), listeTerritoire.get(randomTerritoire).getListe_zone_possible().get(randomZone)));			}
 		}
-		
-		for (int i = 1; i < nombre_de_joueur; i++) {
-			for (int j = 0; j < listeJoueur.get(i).getListe_de_pion_soldat().size(); j++) {
-				if (listeJoueur.get(i).getListe_de_pion_soldat().get(j).getZone().getNom_du_territoire() == listeJoueur.get(i-1).getListe_de_pion_soldat().get(j).getZone().getNom_du_territoire()) {
-					if (listeJoueur.get(i).getListe_de_pion_soldat().get(j).getZone().getNum_zone() == listeJoueur.get(i-1).getListe_de_pion_soldat().get(j).getZone().getNum_zone()) {
-						int randomZone1 = (int) (Math.random()*10);
-						if (randomZone1>6) {
-							while (randomZone1 >6) {
-								randomZone1 = (int) Math.random()*10;
-							}
-							listeJoueur.get(i).getListe_de_pion_soldat().get(j).getZone().setNum_zone(randomZone1);
-						}					
-					}
-
-				}
-			}
-		}
-		
+				
 
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
 		
