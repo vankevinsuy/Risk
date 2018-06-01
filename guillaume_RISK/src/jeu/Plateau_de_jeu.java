@@ -506,5 +506,8 @@ public class Plateau_de_jeu extends JFrame {
 		}
 
 	}
-
+	
+//	public void Attaque() {
+//		current_player.getlist
+//	}
 }

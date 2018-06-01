@@ -112,5 +112,6 @@ public class Maitre_du_jeu {
 		Plateau_de_jeu plateau_de_jeu = new Plateau_de_jeu(this, this.listeJoueur, this.listeTerritoire);
 		
 	}
+
 	
 }

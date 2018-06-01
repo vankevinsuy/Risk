@@ -58,6 +58,11 @@ public class Joueur {
 		}
 	}
 
+	public void Remove_Soldat(int nb_soldat, Pion_soldat soldat) {
+		for (int i = 0; i < nb_soldat; i++) {
+			this.liste_de_pion_soldat.remove(soldat);
+		}
+	}
 	public ArrayList<Pion_Cavalier> getListe_de_pion_cavalier() {
 		return liste_de_pion_cavalier;
 	}
@@ -68,6 +73,11 @@ public class Joueur {
 		}
 	}
 
+	public void RemoveCavalier(int nb_cavalier, Pion_Cavalier cavalier) {
+		for (int i = 0; i < nb_cavalier; i++) {
+			this.liste_de_pion_cavalier.remove(cavalier);
+		}
+	}
 
 	public ArrayList<Pion_Tank> getListe_de_pion_tank() {
 		return liste_de_pion_tank;
@@ -76,6 +86,11 @@ public class Joueur {
 	public void AddTank(int nb_Tank, Pion_Tank tank) {
 		for (int i = 0; i < nb_Tank; i++) {
 			this.liste_de_pion_tank.add(tank);
+		}
+	}
+	public void RemoveTank(int nb_Tank, Pion_Tank tank) {
+		for (int i = 0; i < nb_Tank; i++) {
+			this.liste_de_pion_tank.remove(tank);
 		}
 	}
 
