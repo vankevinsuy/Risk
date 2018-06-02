@@ -1,14 +1,40 @@
 
-public class Soldat {
+public class Soldat extends Combattant{
 	private int puissancemax = 1;
 	private int puissancemin = 6;
-	
+	private int prioritedef =1;
+	private int prioriteatt=2;
 	
 	
 	public Soldat() {
 		super();
 	}
 	
+	
+	public int getPrioriteatt() {
+		return prioriteatt;
+	}
+
+
+
+	public void setPrioriteatt(int prioriteatt) {
+		this.prioriteatt = prioriteatt;
+	}
+
+
+
+	public int getPrioritedef() {
+		return prioritedef;
+	}
+
+
+
+	public void setPrioritedef(int prioritedef) {
+		this.prioritedef = prioritedef;
+	}
+
+
+
 	public int getPuissancemax() {
 		return puissancemax;
 	}

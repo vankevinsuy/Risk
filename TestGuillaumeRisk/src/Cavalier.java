@@ -1,10 +1,29 @@
 import java.security.PublicKey;
 
-public class Cavalier {
-	private int puissancemax = 7;
-	private int puissancemin = 6;
+public class Cavalier extends Combattant{
+	private int puissancemax = 2;
+	private int puissancemin = 7;
+	private int prioritedef=3;
+	private int prioriteatta=1;
 	
 	
+	
+	public int getPrioriteatta() {
+		return prioriteatta;
+	}
+
+	public void setPrioriteatta(int prioriteatta) {
+		this.prioriteatta = prioriteatta;
+	}
+
+	public int getPrioritedef() {
+		return prioritedef;
+	}
+
+	public void setPrioritedef(int prioritedef) {
+		this.prioritedef = prioritedef;
+	}
+
 	public Cavalier() {
 		super();
 
