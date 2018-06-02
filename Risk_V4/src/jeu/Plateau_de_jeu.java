@@ -283,7 +283,7 @@ public class Plateau_de_jeu extends JFrame {
 						new String[] {
 							"", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7"
 						}));
-				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeDeDepart());
+				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeeDeDepartinit());
 				lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
 				lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 				lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));

@@ -16,6 +16,7 @@ public class Maitre_du_jeu {
 	private int armeeeDeDepartinit; 
 
 	
+
 	// Initialistion des joueurs 
 	private  Joueur joueur1 = new Joueur("/image/ico_bouton_joueur1/soldat.png","/image/ico_bouton_joueur1/cavalier.png","/image/ico_bouton_joueur1/tank.png","Annie",new Color(208, 77, 202));
 	private  Joueur joueur2 = new Joueur("/image/ico_bouton_joueur2/soldat.png","/image/ico_bouton_joueur2/cavalier.png","/image/ico_bouton_joueur2/tank.png","Ahri",new Color(3, 248, 254));
@@ -111,6 +112,7 @@ public class Maitre_du_jeu {
 		if (nombre_de_joueur == 2) {
 			for (int i = 0; i < listeJoueur.size(); i++) {
 				listeJoueur.get(i).setArmee(19);
+				this.setArmeeDeDepart(19);
 				armeeeDeDepartinit = 40;
 			}
 		}
@@ -190,8 +192,11 @@ public class Maitre_du_jeu {
 		this.armeeDeDepart = armeeDeDepart;
 	}
 
+	public int getArmeeeDeDepartinit() {
+		return armeeeDeDepartinit;
+	}
 
-
+	
 
 	
 	
