@@ -50,7 +50,7 @@ public class Plateau_de_jeu extends JFrame {
 	private  ArrayList<Joueur> listeJoueur;
 	private  ArrayList<Territoire> listeTerritoire;	
 	
-	private boolean phase_de_jeu; // true pour attaque  false pour poser les pions
+	private int tour; // 1) initialisation + poser les premiers pions   2) et plus attaque et déplacement
 	private int index = 0;
 
 	private JButton btnSoldat;
@@ -90,7 +90,7 @@ public class Plateau_de_jeu extends JFrame {
 		this.listeJoueur = listeJoueur;
 		this.current_player = listeJoueur.get(this.index);
 		this.listeTerritoire = listeTerritoire;
-		this.phase_de_jeu = false;
+		this.tour = 1;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1900, 1000);
@@ -123,7 +123,7 @@ public class Plateau_de_jeu extends JFrame {
 					DrawAllPion();
 				}
 				else {
-					if (current_player.getArmee() == 0) {
+					if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 						btn_actif_soldat = false;
 						btn_actif_cavalier = false;
 						btn_actif_tank =false;
@@ -297,8 +297,9 @@ public class Plateau_de_jeu extends JFrame {
 		btnJouer.setContentAreaFilled(false);
 		btnJouer.setBorderPainted(false);
 		lblmove_ou_attack.setText("");
-		
-
+		this.tour = this.tour + 1;
+		System.out.println(this.tour);
+		System.out.println(maitre_du_jeu.getNombre_de_joueur());
 		contentPane.add(btnJouer);
 		
 		
@@ -426,6 +427,10 @@ public class Plateau_de_jeu extends JFrame {
 		btnDessinerLesPions.setBounds(1566, 818, 146, 25);
 		contentPane.add(btnDessinerLesPions);
 		
+		JButton btnNewButton_1 = new JButton("Deplacer / Attaquer");
+		btnNewButton_1.setBounds(1734, 262, 148, 49);
+		contentPane.add(btnNewButton_1);
+		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
@@ -506,9 +511,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_soldat.setText(Integer.toString(current_player.getArmee()));
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -541,9 +545,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
 										
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -576,9 +579,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_tank.setText((Integer.toString(current_player.getArmee()/7)));
 										
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -623,9 +625,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -655,9 +656,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -687,9 +687,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -732,9 +731,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -763,9 +761,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -794,9 +791,8 @@ public class Plateau_de_jeu extends JFrame {
 										lblnb_reste_cavalier.setText(Integer.toString(current_player.getArmee()/3));
 										lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 										current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
-										if (current_player.getArmee() == 0) {
+										if (current_player.getArmee() == 0 && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 											current_player_displyed_info.setText("Pour passer en phase d'attaque cliquez sur la carte");
-											phase_de_jeu = true;
 										}
 										else {
 											current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
@@ -865,7 +861,7 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		}
 		
-		if (CanIplay(x, y) == true) {
+		if (CanIplay(x, y) == true && tour>=maitre_du_jeu.getNombre_de_joueur()) {
 			if (current_player.getListe_de_pion_soldatinZone_and_terriroire(Zonenum, territoire).size()>0 || current_player.getListe_de_pion_cavalierinZone_and_terriroire(Zonenum, territoire).size()>0 || current_player.getListe_de_pion_tankinZone_and_terriroire(Zonenum, territoire).size()>0) {
 				System.out.println("tu peux bouger tes pions");
 				slider.setEnabled(true);
@@ -877,6 +873,8 @@ public class Plateau_de_jeu extends JFrame {
 				slider_2.setMaximum(current_player.getListe_de_pion_tankinZone_and_terriroire(Zonenum, territoire).size());
 				
 				lblmove_ou_attack.setText(territoire+ " zone "+Zonenum);
+				
+				
 			}
 			else {
 				System.out.println("tu n'as as de pion içi");
