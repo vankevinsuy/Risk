@@ -50,7 +50,7 @@ public class Plateau_de_jeu extends JFrame {
 	private  ArrayList<Joueur> listeJoueur;
 	private  ArrayList<Territoire> listeTerritoire;	
 	
-	private int tour; // 1) initialisation + poser les premiers pions   2) et plus attaque et déplacement
+	private int tour = 1; // 1) initialisation + poser les premiers pions   2) et plus attaque et déplacement
 	private int index = 0;
 
 	private JButton btnSoldat;
@@ -79,6 +79,7 @@ public class Plateau_de_jeu extends JFrame {
 	private JLabel lblNombreDeCavalier;
 	private JLabel NbCavalierAdeplacer;
 
+	private ArrayList<Pion>listePionAttaquant ;
 	
 
 	/**
@@ -172,7 +173,7 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		});
 		
-		//bouton de refresh
+		//bouton de effacer les pions
 		JButton btnNewButton = new JButton("Effacer les pions");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -289,6 +290,8 @@ public class Plateau_de_jeu extends JFrame {
 				lblnb_reste_tank.setText(Integer.toString(current_player.getArmee()/7));
 				current_player.setArmee(Plateau_de_jeu.this.maitre_du_jeu.getArmeeDeDepart());
 				current_player_displyed_info.setText("Tour de " + current_player.getName() + " reste " + Integer.toString(current_player.getArmee()) + " à placer");
+				tour = tour + 1;
+				System.out.println(tour);
 			}
 		});
 		btnJouer.setIcon(new ImageIcon(Plateau_de_jeu.class.getResource("/image/bouton/bouton_fin_tour.png")));
@@ -297,7 +300,6 @@ public class Plateau_de_jeu extends JFrame {
 		btnJouer.setContentAreaFilled(false);
 		btnJouer.setBorderPainted(false);
 		lblmove_ou_attack.setText("");
-		this.tour = this.tour + 1;
 		System.out.println(this.tour);
 		System.out.println(maitre_du_jeu.getNombre_de_joueur());
 		contentPane.add(btnJouer);
@@ -427,9 +429,29 @@ public class Plateau_de_jeu extends JFrame {
 		btnDessinerLesPions.setBounds(1566, 818, 146, 25);
 		contentPane.add(btnDessinerLesPions);
 		
-		JButton btnNewButton_1 = new JButton("Deplacer / Attaquer");
-		btnNewButton_1.setBounds(1734, 262, 148, 49);
-		contentPane.add(btnNewButton_1);
+		JButton btnDeplacer = new JButton("Deplacer");
+		btnDeplacer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnDeplacer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("déplacement");
+			}
+		});
+		btnDeplacer.setBounds(1734, 262, 148, 49);
+		contentPane.add(btnDeplacer);
+		
+		JButton btnAttaque = new JButton("Attaque");
+		btnAttaque.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("Attaque");
+			}
+		});
+		btnAttaque.setBounds(1734, 361, 148, 49);
+		contentPane.add(btnAttaque);
 		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
 		table.getColumnModel().getColumn(1).setResizable(false);
@@ -874,6 +896,9 @@ public class Plateau_de_jeu extends JFrame {
 				
 				lblmove_ou_attack.setText(territoire+ " zone "+Zonenum);
 				
+				for (int i = 0; i < current_player.getListe_de_pion_soldatinZone_and_terriroire(Zonenum, territoire).size(); i++) {
+					
+				}
 				
 			}
 			else {
