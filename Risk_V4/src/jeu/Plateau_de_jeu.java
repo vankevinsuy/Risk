@@ -122,6 +122,9 @@ public class Plateau_de_jeu extends JFrame {
 				if (current_color.getRed()==255 && current_color.getGreen()==255 && current_color.getBlue()==255) {
 					System.out.println("");
 					System.out.println(listePionAttaquantSoldat.size());
+					System.out.println(listePionDefenseurSoldat.size());
+
+					Defense = false;
 					DrawAllPion();
 				}
 				else {
@@ -933,15 +936,14 @@ public class Plateau_de_jeu extends JFrame {
 			}
 		}
 		
-		if (Defense == false && CanIplay(x, y)==true) {
+		if (listePionAttaquantSoldat.size()<=0 && CanIplay(x, y)==true) {
 			listePionAttaquantSoldat = current_player.getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
 		}
-		if (Defense == true && CanIplay(x, y)==false) {
+		if (listePionAttaquantSoldat.size()>0 && CanIplay(x, y)==false) {
 			for (int j = 0; j < listeJoueur.size(); j++) {
 				if (listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant).size()!=0) {
 					listePionDefenseurSoldat = listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
 					System.out.println("attaquant :" + listePionAttaquantSoldat.size() + " defense :" + listePionDefenseurSoldat.size());
-					Defense = false;
 					
 					//deplacement des pions
 //					for (int i = 0; i < sliderSoldat.getValue(); i++) {
