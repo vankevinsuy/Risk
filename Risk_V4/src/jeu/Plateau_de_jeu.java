@@ -944,7 +944,7 @@ public class Plateau_de_jeu extends JFrame {
 				if (listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant).size()!=0) {
 					listePionDefenseurSoldat = listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
 					System.out.println("attaquant :" + listePionAttaquantSoldat.size() + " defense :" + listePionDefenseurSoldat.size());
-					
+					current_player.AddTank(10, new Pion_Tank(current_player.getCheminicopionTank(), new Zone("Asie", 1, new Color(227, 180, 78))));
 					//deplacement des pions
 //					for (int i = 0; i < sliderSoldat.getValue(); i++) {
 //						current_player.getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant).get(i).getZone().setNum_zone(1);;
