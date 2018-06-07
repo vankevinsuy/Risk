@@ -68,15 +68,18 @@ public class Plateau_de_jeu extends JFrame {
 	private JSlider slider_Cavalier;
 	private JSlider slider_Tank;
 
-	protected AbstractButton NbSoldatAdeplacer;
 	private JLabel NbSoldatdeplacerlbl;
 	private JLabel lblNombreDeCavalier;
 	private JLabel NbCavalierAdeplacer;
 
 	private ArrayList<Pion_soldat> listePionAttaquantSoldat;
+	private ArrayList<Pion_Cavalier> listePionAttaquantCavalier;
+	private ArrayList<Pion_Tank> listePionAttaquantTank;
+	
 	private ArrayList<Pion_soldat> listePionDefenseurSoldat;
+	private ArrayList<Pion_Cavalier> listePionDefenseurCavalier;
+	private ArrayList<Pion_Tank> listePionDefenseurTank;
 	private boolean Defense;
-	private JButton btnNewButton_1;
 	
 
 	/**
@@ -90,7 +93,12 @@ public class Plateau_de_jeu extends JFrame {
 		this.listeTerritoire = listeTerritoire;
 		this.tour = 1;
 		this.listePionAttaquantSoldat = new ArrayList<Pion_soldat>();
+		this.listePionAttaquantCavalier = new ArrayList<Pion_Cavalier>();
+		this.listePionAttaquantTank = new ArrayList<Pion_Tank>();
+		
 		this.listePionDefenseurSoldat = new ArrayList<Pion_soldat>();
+		this.listePionDefenseurCavalier = new ArrayList<Pion_Cavalier>();
+		this.listePionDefenseurTank  = new ArrayList<Pion_Tank>();
 		this.Defense = false;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,8 +129,7 @@ public class Plateau_de_jeu extends JFrame {
 				//si on clique dans le vide on saute une ligne dans la console
 				if (current_color.getRed()==255 && current_color.getGreen()==255 && current_color.getBlue()==255) {
 					System.out.println("");
-					System.out.println(listePionAttaquantSoldat.size());
-					System.out.println(listePionDefenseurSoldat.size());
+
 
 					Defense = false;
 					DrawAllPion();
@@ -432,36 +439,6 @@ public class Plateau_de_jeu extends JFrame {
 		});
 		btnDessinerLesPions.setBounds(1566, 818, 146, 25);
 		contentPane.add(btnDessinerLesPions);
-		
-		
-		// deplacer les pions et attaque 
-		JButton btnDeplacerAttaquer = new JButton("Deplacer / Attaquer");
-		btnDeplacerAttaquer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Defense = true;
-			}
-		});
-		btnDeplacerAttaquer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("déplacement");
-			}
-		});
-		btnDeplacerAttaquer.setBounds(1734, 262, 148, 49);
-		contentPane.add(btnDeplacerAttaquer);
-		
-		btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Asie").size());
-				current_player.AddTank(3, new Pion_Tank(current_player.getCheminicopionTank(), new Zone("Asie", 1, new Color(227, 180, 78))));
-				System.out.println(current_player.getListe_de_pion_soldatinZone_and_terriroire(1, "Asie").size());
-
-			}
-		});
-		btnNewButton_1.setBounds(1766, 379, 97, 25);
-		contentPane.add(btnNewButton_1);
 		
 		table.getColumnModel().getColumn(0).setPreferredWidth(121);
 		table.getColumnModel().getColumn(1).setResizable(false);
@@ -928,27 +905,50 @@ public class Plateau_de_jeu extends JFrame {
 				lblmove_ou_attack.setText(territoireAttaquant+ " zone "+zonenumAttaquant);
 
 			}
-			else {
+
+		}			
+		else {
 				System.out.println("tu n'as as de pion içi");
 				sliderSoldat.setEnabled(false);
 				slider_Cavalier.setEnabled(false);
 				slider_Tank.setEnabled(false);
 			}
+		
+		if (listePionAttaquantSoldat.size()==0 && CanIplay(x, y)==true) {
+			listePionAttaquantSoldat = current_player.getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
+			listePionAttaquantCavalier = current_player.getListe_de_pion_cavalierinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
+			listePionAttaquantTank = current_player.getListe_de_pion_tankinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
 		}
 		
-		if (listePionAttaquantSoldat.size()<=0 && CanIplay(x, y)==true) {
+		if (listePionAttaquantSoldat.size()>0 && CanIplay(x, y)==true) {
 			listePionAttaquantSoldat = current_player.getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
+			listePionAttaquantCavalier = current_player.getListe_de_pion_cavalierinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
+			listePionAttaquantTank = current_player.getListe_de_pion_tankinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
 		}
 		if (listePionAttaquantSoldat.size()>0 && CanIplay(x, y)==false) {
 			for (int j = 0; j < listeJoueur.size(); j++) {
 				if (listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant).size()!=0) {
 					listePionDefenseurSoldat = listeJoueur.get(j).getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant);
-					System.out.println("attaquant :" + listePionAttaquantSoldat.size() + " defense :" + listePionDefenseurSoldat.size());
-					current_player.AddTank(10, new Pion_Tank(current_player.getCheminicopionTank(), new Zone("Asie", 1, new Color(227, 180, 78))));
-					//deplacement des pions
-//					for (int i = 0; i < sliderSoldat.getValue(); i++) {
-//						current_player.getListe_de_pion_soldatinZone_and_terriroire(zonenumAttaquant, territoireAttaquant).get(i).getZone().setNum_zone(1);;
-//					}
+//					current_player.AddTank(10, new Pion_Tank(current_player.getCheminicopionTank(), new Zone("Asie", 1, new Color(227, 180, 78))));
+					lblmove_ou_attack.setText("attaquant :" + (listePionAttaquantSoldat.size() + listePionAttaquantCavalier.size() + listePionAttaquantTank.size()) + " defense :" + (listePionDefenseurSoldat.size()+ listePionDefenseurCavalier.size()+listePionDefenseurTank.size()));
+					
+					for (int j2 = 0; j < sliderSoldat.getValue(); j2++) {
+						listePionAttaquantSoldat.get(j2).getZone().setNum_zone(zonenumAttaquant);
+						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
+					}
+					for (int j2 = 0; j < slider_Cavalier.getValue(); j2++) {
+						listePionAttaquantCavalier.get(j2).getZone().setNum_zone(zonenumAttaquant);
+						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
+
+					}
+					for (int j2 = 0; j < slider_Tank.getValue(); j2++) {
+						listePionAttaquantTank.get(j2).getZone().setNum_zone(zonenumAttaquant);
+						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
+
+					}
+					listePionAttaquantSoldat.clear();
+					listePionAttaquantCavalier.clear();
+					listePionAttaquantTank.clear();
 				}
 			}
 		}
