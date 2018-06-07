@@ -9,16 +9,17 @@ public class Bataille {
 		Tank tank = new Tank();
 		Soldat soldat = new Soldat();
 		ArrayList<Combattant> arraycombattantattaquant = new ArrayList<Combattant>();
-		arraycombattantattaquant.add(cavalier);
+		arraycombattantattaquant.add(tank);
+		arraycombattantattaquant.add(tank);
 		arraycombattantattaquant.add(soldat);
-		arraycombattantattaquant.add(cavalier);
 		ArrayList<Combattant> arraycombattantdefendant = new ArrayList<Combattant>();
 		arraycombattantdefendant.add(cavalier);
 		arraycombattantdefendant.add(soldat);	
 		Champsdebataille champsdebataille = new Champsdebataille();
-		champsdebataille.ListeArmeeAttaque(arraycombattantattaquant);
-		System.out.println(champsdebataille.getArrayalea());
-		champsdebataille.ListeArmeeDefense(arraycombattantdefendant);
+//		champsdebataille.ListeArmeeAttaque(arraycombattantattaquant);
+//		System.out.println(champsdebataille.getArrayalea());
+//		champsdebataille.ListeArmeeDefense(arraycombattantdefendant);
+		tank.TankFightCavalier(cavalier);
 		
 	}
 
