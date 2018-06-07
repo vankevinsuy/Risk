@@ -16,7 +16,7 @@ public class Territoire {
 		super();
 		this.couleur_primaire_territoire1 = couleur_primaire_territoire1;
 		this.couleur_primaire_territoire2 = couleur_primaire_territoire2;
-		Name = name;
+		this.Name = name;
 		this.liste_zone_possible = new ArrayList<Zone>();
 	}
 

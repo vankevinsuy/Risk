@@ -9,8 +9,6 @@ public class Pion  {
 	private int valeur;
 	private Zone zone;
 	
-	private ImageIcon icon;
-	
 	
 	public Pion(String iconePion, Zone zone){
 		this.iconePion = iconePion;
