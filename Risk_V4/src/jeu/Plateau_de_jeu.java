@@ -939,18 +939,18 @@ public class Plateau_de_jeu extends JFrame {
 //					current_player.AddTank(10, new Pion_Tank(current_player.getCheminicopionTank(), new Zone("Asie", 1, new Color(227, 180, 78))));
 					lblmove_ou_attack.setText("attaquant :" + (listePionAttaquantSoldat.size() + listePionAttaquantCavalier.size() + listePionAttaquantTank.size()) + " defense :" + (listePionDefenseurSoldat.size()+ listePionDefenseurCavalier.size()+listePionDefenseurTank.size()));
 					
-					for (int j2 = 0; j < sliderSoldat.getValue()-1; j2++) {
+					for (int j2 = 0; j < sliderSoldat.getValue(); j2++) {
 						listePionAttaquantSoldat.get(j2).getZone().setNum_zone(zonenumAttaquant);
 						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
 					}
-					for (int j2 = 0; j < slider_Cavalier.getValue()-1; j2++) {
+					for (int j2 = 0; j < slider_Cavalier.getValue(); j2++) {
 						listePionAttaquantCavalier.get(j2).getZone().setNum_zone(zonenumAttaquant);
-						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
+						current_player.getListe_de_pion_cavalier().get(j2).getZone().setNum_zone(zonenumAttaquant);
 
 					}
-					for (int j2 = 0; j < slider_Tank.getValue()-1; j2++) {
+					for (int j2 = 0; j < slider_Tank.getValue(); j2++) {
 						listePionAttaquantTank.get(j2).getZone().setNum_zone(zonenumAttaquant);
-						current_player.getListe_de_pion_soldat().get(j2).getZone().setNum_zone(zonenumAttaquant);
+						current_player.getListe_de_pion_tank().get(j2).getZone().setNum_zone(zonenumAttaquant);
 
 					}
 					
